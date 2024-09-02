@@ -103,7 +103,7 @@ spec:
       input:
         manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
         namespaced: true
-        clusterName: arn:aws:eks:eu-west-1:523753954008:cluster/cnoe-test-cluster
+        clusterName: cnoe-test-cluster
 
     # Apply dataplane workflow
     - id: apply-dataplane-workflow
