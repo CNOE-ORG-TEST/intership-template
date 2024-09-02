@@ -112,7 +112,7 @@ spec:
       input:
         manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
         namespaced: true
-        clusterName: arn:aws:eks:eu-west-1:523753954008:cluster/cnoe-test-cluster
+        clusterName: cnoe-test-cluster
 
     # Apply infrplane workflow
     - id: apply-infrplane-workflow
@@ -121,7 +121,7 @@ spec:
       input:
         manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
         namespaced: true
-        clusterName: arn:aws:eks:eu-west-1:523753954008:cluster/cnoe-test-cluster
+        clusterName: cnoe-test-cluster
 
     #- id: register-workflow
     #  name: Register workflow
