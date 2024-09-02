@@ -29,11 +29,23 @@ spec:
           default: eu-west-1
           description: AWS region to use
   steps:
-    - id: create-repo
-      name: Create Platform applicative repository
+    - id: create-repo-controlplane
+      name: Create controlplane repository
       action: github:repo:create
       input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}&organization=CNOE-ORG-TEST
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Controlplane&organization=CNOE-ORG-TEST
+
+    - id: create-repo-dataplane
+      name: Create dataplane repository
+      action: github:repo:create
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
+
+    - id: create-repo-infrplane
+      name: Create infrplane repository
+      action: github:repo:create
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
 
     - id: fetch-applicative-template
       name: Fetch Applicative Template
@@ -46,25 +58,42 @@ spec:
           eksVersion: ${{ parameters.eksVersion }} #Parametro sostituito nel file applicative-template/infrastructure/k8s/catalog-info.yaml
           region: ${{ parameters.awsRegion }} #Parametro sostituito nel template application.yaml
 
-    - id: init-applicative-repo
-      name: Initialize Applicative Repository
+    - id: init-controlplane-repo
+      name: Initialize controlplane repository
       action: github:repo:push
       input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}&organization=CNOE-ORG-TEST
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Controlplane&organization=CNOE-ORG-TEST
         defaultBranch: main
-        sourcePath: ./applicative-template-compiled/
+        sourcePath: ./applicative-template-compiled/controlplane
+
+    - id: init-dataplane-repo
+      name: Initialize dataplane repository
+      action: github:repo:push
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
+        defaultBranch: main
+        sourcePath: ./applicative-template-compiled/dataplane
+
+    - id: init-infrplane-repo
+      name: Initialize dataplane repository
+      action: github:repo:push
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
+        defaultBranch: main
+        sourcePath: ./applicative-template-compiled/infrplane
+
     - id: wait
       name: Waiting for the repo to be ready
       action: "roadiehq:utils:sleep"
       input:
         amount: 5
 
-    - id: register-workflow
-      name: Register workflow
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps['init-applicative-repo'].output.repoContentsUrl }}
-        catalogInfoPath: "/catalog-info-workflow.yaml"
+    #- id: register-workflow
+    #  name: Register workflow
+    #  action: catalog:register
+    #  input:
+    #    repoContentsUrl: ${{ steps['init-applicative-repo'].output.repoContentsUrl }}
+    #    catalogInfoPath: "/catalog-info-workflow.yaml"
 
     # - id: register-cd
     #   name: Register cd

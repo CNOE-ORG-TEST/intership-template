@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: pipeline-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      dag:
+        tasks:
+          - name: cluster-ame
+            template: echo
+            arguments:
+              parameters:
+                - name: message
+                  value: ${{values.clusterName}}
+          - name: region
+            template: echo
+            dependencies: [step-1]
+            arguments:
+              parameters:
+                - name: message
+                  value: ${{values.region}}
+          - name: step-3
+            template: echo
+            dependencies: [step-2]
+            arguments:
+              parameters:
+                - name: message
+                  value: ${{values.eksVersion}}
+
+    - name: echo
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:3.7
+        command: [sh, -c]
+        args: ["echo {{inputs.parameters.message}}"]
