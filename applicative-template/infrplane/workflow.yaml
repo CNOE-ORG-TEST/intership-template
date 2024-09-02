@@ -1,39 +1,73 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: pipeline-
+  generateName: build-infrplane
 spec:
   entrypoint: main
   templates:
     - name: main
-      dag:
-        tasks:
-          - name: cluster-ame
-            template: echo
-            arguments:
-              parameters:
-                - name: message
-                  value: ${{values.clusterName}}
-          - name: region
-            template: echo
-            dependencies: [step-1]
-            arguments:
-              parameters:
-                - name: message
-                  value: ${{values.region}}
-          - name: step-3
-            template: echo
-            dependencies: [step-2]
-            arguments:
-              parameters:
-                - name: message
-                  value: ${{values.eksVersion}}
+      steps:
+        - - name: pull
+            template: pull-step
+        - - name: customization
+            template: customization-step
+        - - name: deploy
+            template: deploy-step
+        - - name: test
+            template: test-step
 
-    - name: echo
-      inputs:
-        parameters:
-          - name: message
+    # definition of the pull step
+    - name: pull-step
       container:
-        image: alpine:3.7
-        command: [sh, -c]
-        args: ["echo {{inputs.parameters.message}}"]
+        image: busybox
+        command: ["sh", "-c"]
+        args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
+        env:
+          - name: clusterName
+            value: ${{values.clusterName}}
+          - name: region
+            value: ${{values.region}}
+          - name: eksVersion
+            value: ${{values.eksVersion}}
+
+    # definition of the customization step
+    - name: customization-step
+      container:
+        image: busybox
+        command: ["sh", "-c"]
+        args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
+        env:
+          - name: clusterName
+            value: ${{values.clusterName}}
+          - name: region
+            value: ${{values.region}}
+          - name: eksVersion
+            value: ${{values.eksVersion}}
+
+    # definition of the deploy step
+    - name: deploy-step
+      container:
+        image: busybox
+        command: ["sh", "-c"]
+        args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
+        env:
+          - name: clusterName
+            value: ${{values.clusterName}}
+          - name: region
+            value: ${{values.region}}
+          - name: eksVersion
+            value: ${{values.eksVersion}}
+
+    # definition of the test step
+    - name: test-step
+      container:
+        image: busybox
+        command: ["sh", "-c"]
+        args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
+        env:
+          - name: clusterName
+            value: ${{values.clusterName}}
+          - name: region
+            value: ${{values.region}}
+          - name: eksVersion
+            value: ${{values.eksVersion}}
