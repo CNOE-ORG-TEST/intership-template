@@ -29,24 +29,28 @@ spec:
           default: eu-west-1
           description: AWS region to use
   steps:
+    # Create controlplane repository
     - id: create-repo-controlplane
       name: Create controlplane repository
       action: github:repo:create
       input:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Controlplane&organization=CNOE-ORG-TEST
 
+    # Create dataplane repository
     - id: create-repo-dataplane
       name: Create dataplane repository
       action: github:repo:create
       input:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
 
+    # Create infrplane repository
     - id: create-repo-infrplane
       name: Create infrplane repository
       action: github:repo:create
       input:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
 
+    # Set value to parameters
     - id: fetch-applicative-template
       name: Fetch Applicative Template
       action: fetch:template
@@ -54,10 +58,11 @@ spec:
         url: ./applicative-template/
         targetPath: ./applicative-template-compiled/
         values:
-          clusterName: ${{ parameters.clusterName }} #Parametro sostituito nel file applicative-template/nginx.yaml
-          eksVersion: ${{ parameters.eksVersion }} #Parametro sostituito nel file applicative-template/infrastructure/k8s/catalog-info.yaml
-          region: ${{ parameters.awsRegion }} #Parametro sostituito nel template application.yaml
+          clusterName: ${{ parameters.clusterName }}
+          eksVersion: ${{ parameters.eksVersion }}
+          region: ${{ parameters.awsRegion }}
 
+    # Push files to controlplane repository
     - id: init-controlplane-repo
       name: Initialize controlplane repository
       action: github:repo:push
@@ -66,6 +71,7 @@ spec:
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/controlplane
 
+    # Push files to dataplane repository
     - id: init-dataplane-repo
       name: Initialize dataplane repository
       action: github:repo:push
@@ -74,19 +80,48 @@ spec:
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/dataplane
 
+    # Push files to infrplane repository
     - id: init-infrplane-repo
-      name: Initialize dataplane repository
+      name: Initialize infrplane repository
       action: github:repo:push
       input:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/infrplane
 
+    # Waiting for the repo to be ready
     - id: wait
       name: Waiting for the repo to be ready
       action: "roadiehq:utils:sleep"
       input:
         amount: 5
+
+    # Apply controlplane workflow
+    - id: apply-controlplane-workflow
+      name: Apply controlplane workflow
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
+        namespaced: true
+        clusterName: arn:aws:eks:eu-west-1:523753954008:cluster/cnoe-test-cluster
+
+    # Apply dataplane workflow
+    - id: apply-dataplane-workflow
+      name: Apply dataplane workflow
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
+        namespaced: true
+        clusterName: arn:aws:eks:eu-west-1:523753954008:cluster/cnoe-test-cluster
+
+    # Apply infrplane workflow
+    - id: apply-infrplane-workflow
+      name: Apply infrplane workflow
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
+        namespaced: true
+        clusterName: arn:aws:eks:eu-west-1:523753954008:cluster/cnoe-test-cluster
 
     #- id: register-workflow
     #  name: Register workflow
