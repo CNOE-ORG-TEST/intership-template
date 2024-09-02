@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
-  name: reply-platform-intership
+  name: reply-roberto-intership
   description: A public collection of Backstage templates
 spec:
   targets:
