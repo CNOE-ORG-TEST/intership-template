@@ -2,8 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
   generateName: build-infrplane
+  namespace: argo
 spec:
   entrypoint: main
+  serviceAccountName: argo-workflows-loki-sa
   templates:
     - name: main
       steps:
