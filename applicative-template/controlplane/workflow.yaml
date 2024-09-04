@@ -31,7 +31,7 @@ spec:
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
         volumeMounts:
           - name: shared-volume-controlplane
-            mountPath: /data/shared
+            mountPath: /shared
         env:
           - name: GITHUB_REPO
             value: "CNOE-ORG-TEST/${{values.eksVersion}}Controlplane"
@@ -49,7 +49,7 @@ spec:
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
         volumeMounts:
           - name: shared-volume-controlplane
-            mountPath: /data/shared
+            mountPath: /shared
 
 
     # definition of the deploy step
@@ -70,7 +70,7 @@ spec:
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
         volumeMounts:
           - name: shared-volume-controlplane
-            mountPath: /data/shared
+            mountPath: /shared
 
     # definition of the test step
     - name: test-step
@@ -80,4 +80,4 @@ spec:
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
         volumeMounts:
           - name: shared-volume-controlplane
-            mountPath: /data/shared
+            mountPath: /shared
