@@ -6,6 +6,9 @@ metadata:
 spec:
   entrypoint: main
   serviceAccountName: argo-workflows-loki-sa
+  volumes:
+    - name: shared-volume-infrplane
+      emptyDir: { }
   templates:
     - name: main
       steps:
@@ -24,13 +27,17 @@ spec:
         image: busybox
         command: ["sh", "-c"]
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
+        volumeMounts:
+          - name: shared-volume-infrplane
+            mountPath: /data/shared
         env:
-          - name: clusterName
-            value: ${{values.clusterName}}
-          - name: region
-            value: ${{values.region}}
-          - name: eksVersion
-            value: ${{values.eksVersion}}
+          - name: GITHUB_REPO
+            value: "CNOE-ORG-TEST/${{values.eksVersion}}Controlplane"
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: github-token-cnoeorg-secret
+                key: GITHUB_TOKEN
 
     # definition of the customization step
     - name: customization-step
@@ -38,13 +45,9 @@ spec:
         image: busybox
         command: ["sh", "-c"]
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
-        env:
-          - name: clusterName
-            value: ${{values.clusterName}}
-          - name: region
-            value: ${{values.region}}
-          - name: eksVersion
-            value: ${{values.eksVersion}}
+        volumeMounts:
+          - name: shared-volume-infrplane
+            mountPath: /data/shared
 
     # definition of the deploy step
     - name: deploy-step
@@ -52,13 +55,9 @@ spec:
         image: busybox
         command: ["sh", "-c"]
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
-        env:
-          - name: clusterName
-            value: ${{values.clusterName}}
-          - name: region
-            value: ${{values.region}}
-          - name: eksVersion
-            value: ${{values.eksVersion}}
+        volumeMounts:
+          - name: shared-volume-infrplane
+            mountPath: /data/shared
 
     # definition of the test step
     - name: test-step
@@ -66,10 +65,6 @@ spec:
         image: busybox
         command: ["sh", "-c"]
         args: ["echo 'clusterName: $clusterName region: $region eksVersion: $eksVersion'"]
-        env:
-          - name: clusterName
-            value: ${{values.clusterName}}
-          - name: region
-            value: ${{values.region}}
-          - name: eksVersion
-            value: ${{values.eksVersion}}
+        volumeMounts:
+          - name: shared-volume-infrplane
+            mountPath: /data/shared
