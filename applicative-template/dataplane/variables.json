@@ -1,5 +1,6 @@
 {
   "clusterName": "${{values.clusterName}}",
   "region": "${{values.region}}",
-  "eksVersion": "${{values.eksVersion}}"
+  "eksVersion": "${{values.eksVersion}}",
+  "awsAccountId": "${{values.awsAccountId}}"
 }
