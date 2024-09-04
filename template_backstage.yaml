@@ -13,11 +13,12 @@ spec:
         - eksVersion
         - awsRegion
         - clusterName
+        - awsAccountId
       properties:
         clusterName:
           title: Enter cluster name to create
           type: string
-          description: repository name
+          description: repositories/cluster name
         eksVersion:
           title: Enter EKS version to use
           type: string
@@ -28,6 +29,10 @@ spec:
           type: string
           default: eu-west-1
           description: AWS region to use
+        awsAccountId:
+          title: Enter AWS account ID to use
+          type: string
+          description: your AWS account ID
   steps:
     # Create controlplane repository
     - id: create-repo-controlplane
