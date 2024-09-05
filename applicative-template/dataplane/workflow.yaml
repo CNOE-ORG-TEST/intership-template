@@ -32,7 +32,7 @@ spec:
             mountPath: /shared
         env:
           - name: GITHUB_REPO
-            value: "CNOE-ORG-TEST/${{values.eksVersion}}Dataplane"
+            value: "CNOE-ORG-TEST/${{values.clusterName}}Dataplane"
           - name: GITHUB_TOKEN
             valueFrom:
               secretKeyRef:
