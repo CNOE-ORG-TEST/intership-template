@@ -108,6 +108,7 @@ spec:
       input:
         manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
         namespaced: true
+        clusterName: local
         #clusterName: cnoe-test-cluster
 
     # Apply dataplane workflow
@@ -117,6 +118,7 @@ spec:
       input:
         manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
         namespaced: true
+        clusterName: local
         #clusterName: cnoe-test-cluster
 
     # Apply infrplane workflow
@@ -126,6 +128,7 @@ spec:
       input:
         manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
         namespaced: true
+        clusterName: local
         #clusterName: cnoe-test-cluster
 
     #- id: register-workflow
