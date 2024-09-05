@@ -42,18 +42,18 @@ spec:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Controlplane&organization=CNOE-ORG-TEST
 
     # Create dataplane repository
-    - id: create-repo-dataplane
-      name: Create dataplane repository
-      action: github:repo:create
-      input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
+    #- id: create-repo-dataplane
+    #  name: Create dataplane repository
+    #  action: github:repo:create
+    #  input:
+    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
 
     # Create infrplane repository
-    - id: create-repo-infrplane
-      name: Create infrplane repository
-      action: github:repo:create
-      input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
+    #- id: create-repo-infrplane
+    #  name: Create infrplane repository
+    #  action: github:repo:create
+    #  input:
+    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
 
     # Set value to parameters
     - id: fetch-applicative-template
@@ -77,22 +77,22 @@ spec:
         sourcePath: ./applicative-template-compiled/controlplane
 
     # Push files to dataplane repository
-    - id: init-dataplane-repo
-      name: Initialize dataplane repository
-      action: github:repo:push
-      input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
-        defaultBranch: main
-        sourcePath: ./applicative-template-compiled/dataplane
+    #- id: init-dataplane-repo
+    #  name: Initialize dataplane repository
+    #  action: github:repo:push
+    #  input:
+    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
+    #    defaultBranch: main
+    #    sourcePath: ./applicative-template-compiled/dataplane
 
     # Push files to infrplane repository
-    - id: init-infrplane-repo
-      name: Initialize infrplane repository
-      action: github:repo:push
-      input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
-        defaultBranch: main
-        sourcePath: ./applicative-template-compiled/infrplane
+    #- id: init-infrplane-repo
+    #  name: Initialize infrplane repository
+    #  action: github:repo:push
+    #  input:
+    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
+    #    defaultBranch: main
+    #    sourcePath: ./applicative-template-compiled/infrplane
 
     # Waiting for the repo to be ready
     - id: wait
@@ -109,27 +109,25 @@ spec:
         manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
         namespaced: true
         clusterName: local
-        #clusterName: cnoe-test-cluster
 
     # Apply dataplane workflow
-    - id: apply-dataplane-workflow
-      name: Apply dataplane workflow
-      action: cnoe:kubernetes:apply
-      input:
-        manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
-        namespaced: true
-        clusterName: local
+    #- id: apply-dataplane-workflow
+    #  name: Apply dataplane workflow
+    #  action: cnoe:kubernetes:apply
+    #  input:
+    #    manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
+    #    namespaced: true
+    #    clusterName: local
         #clusterName: cnoe-test-cluster
 
     # Apply infrplane workflow
-    - id: apply-infrplane-workflow
-      name: Apply infrplane workflow
-      action: cnoe:kubernetes:apply
-      input:
-        manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
-        namespaced: true
-        clusterName: local
-        #clusterName: cnoe-test-cluster
+    #- id: apply-infrplane-workflow
+    #  name: Apply infrplane workflow
+    #  action: cnoe:kubernetes:apply
+    #  input:
+    #    manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
+    #    namespaced: true
+    #    clusterName: local
 
     #- id: register-workflow
     #  name: Register workflow

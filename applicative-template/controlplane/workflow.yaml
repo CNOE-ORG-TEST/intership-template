@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  name: build-controlplane
+  generateName: build-controlplane
   namespace: argo
 spec:
   entrypoint: main
