@@ -21,7 +21,7 @@ spec:
           description: repositories/cluster name
         eksVersion:
           title: Enter EKS version to use
-          type: float
+          type: number
           default: 1.28
           description: EKS version to use
         awsRegion:
