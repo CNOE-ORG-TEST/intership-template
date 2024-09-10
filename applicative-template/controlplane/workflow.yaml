@@ -48,6 +48,14 @@ spec:
         volumeMounts:
           - name: shared-volume-controlplane
             mountPath: /shared
+        env:
+          - name: GITHUB_ORG
+            value: "CNOE-ORG-TEST"
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: github-token-cnoeorg-secret
+                key: GITHUB_TOKEN
 
 
     # definition of the deploy step
