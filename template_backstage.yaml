@@ -73,7 +73,6 @@ spec:
           minItems: 0
           ui:options:
             addable: true
-            orderable: true
             removable: true
           items:
             title: Enter ID of the security groups
