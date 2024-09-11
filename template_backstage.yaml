@@ -36,7 +36,7 @@ spec:
           description: AWS region to use
         environmentTag:
           title: Enter environment
-          ui:enum: [ "dev", "quality", "prod", "test" ]
+          ui:field: MultiEntityPicker
         awsAccountId:
           title: Enter AWS account ID to use
           type: string
