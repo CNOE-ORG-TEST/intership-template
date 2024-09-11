@@ -36,10 +36,18 @@ spec:
           description: AWS region to use
         environmentTag:
           title: Enter environment
-          type: array
-          ui:field: MultiEntityPicker
-          ui:options:
-            defaultNamespace: payment
+          type: string
+          default: development
+          enum:
+            - development
+            - quality
+            - production
+            - testing
+          enumNames:
+            - 'dev'
+            - 'quality'
+            - 'prod'
+            - 'testing'
         awsAccountId:
           title: Enter AWS account ID to use
           type: string
