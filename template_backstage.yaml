@@ -27,7 +27,13 @@ spec:
         eksVersion:
           title: Enter EKS version to use
           type: string
-          default: "1.28"
+          default: "1.29"
+          enum:
+            - "1.28"
+            - "1.29"
+          enumNames:
+            - "1.28"
+            - "1.29"
           description: EKS version to use
         awsRegion:
           title: Enter AWS region to use
