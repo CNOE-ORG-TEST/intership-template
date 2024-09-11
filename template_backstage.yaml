@@ -62,14 +62,30 @@ spec:
           title: Enter ID of the vpc my
           type: string
           description: ID of the vpc where deploy the cluster
-        feSubnetId:
-          title: Enter ID of the frontend subnet
-          type: string
-          description:  ID of the frontend subnet where deploy the load balancers
-        beSubnetId:
-          title: Enter ID of the backend subnet
-          type: string
-          description: ID of the backend subnet where deploy the data nodes
+        feSubnetIds:
+          title: Enter IDs of the frontend subnets
+          description:  IDs of the frontend subnets where deploy the load balancers
+          type: array
+          minItems: 0
+          ui:options:
+            addable: true
+            removable: true
+          items:
+            title: Enter ID of the frontend subnet
+            description: ID of the frontend subnet where deploy the data nodes
+            type: string
+        beSubnetIds:
+          title: Enter IDs of the backend subnets
+          description: ID of the backend subnets where deploy the data nodes
+          type: array
+          minItems: 0
+          ui:options:
+            addable: true
+            removable: true
+          items:
+            title: Enter ID of the backend subnet
+            description: ID of the backend subnet where deploy the data nodes
+            type: string
         securityGroupIds:
           title: Enter IDs of the security groups
           description: IDs of the security groups
@@ -118,8 +134,8 @@ spec:
           region: ${{ parameters.awsRegion }}
           awsAccountId: ${{ parameters.awsAccountId }}
           environmentTag: ${{ parameters.environmentTag }}
-          feSubnetId: ${{ parameters.feSubnetId }}
-          beSubnetId: ${{ parameters.beSubnetId }}
+          feSubnetId: ${{ parameters.feSubnetIds }}
+          beSubnetId: ${{ parameters.beSubnetIds }}
           securityGroupIds: ${{ parameters.securityGroupIds}}
           vpcId: ${{ parameters.vpcId }}
 

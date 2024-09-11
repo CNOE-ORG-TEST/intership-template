@@ -4,8 +4,8 @@
   "region": "${{values.region}}",
   "awsAccountId": "${{values.awsAccountId}}",
   "vpcId": "${{values.vpcId}}",
-  "feSubnetId": "${{values.beSubnetId}}",
-  "beSubnetId": "${{values.beSubnetId}}",
+  "feSubnetIds": "${{values.feSubnetIds}}",
+  "beSubnetIds": "${{values.beSubnetIds}}",
   "securityGroupIds": "${{values.securityGroupIds}}",
   "env": "${{values.environmentTag}}"
 }
