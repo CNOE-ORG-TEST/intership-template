@@ -32,7 +32,7 @@ spec:
             - "1.28"
             - "1.29"
           enumNames:
-            - "1.28"
+            - "1.28 "
             - "1.29"
           description: EKS version to use
         awsRegion:
