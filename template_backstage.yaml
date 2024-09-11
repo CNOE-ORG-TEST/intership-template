@@ -36,7 +36,6 @@ spec:
           description: AWS region to use
         environmentTag:
           title: Enter environment
-          type: string
           ui:field: MultiEntityPicker
           ui:options:
             defaultNamespace: payment
