@@ -59,7 +59,7 @@ spec:
             - 'production'
             - 'testing'
         vpcId:
-          title: Enter ID of the vpc
+          title: Enter ID of the vpc my
           type: string
           description: ID of the vpc where deploy the cluster
         feSubnetId:
