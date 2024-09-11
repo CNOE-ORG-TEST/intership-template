@@ -70,18 +70,7 @@ spec:
           title: Enter ID of the backend subnet
           type: string
           description: ID of the backend subnet where deploy the data nodes
-        securityGroupId:
-          title: Enter IDs of the security groups
-          description: IDs of the security groups
-          type: array
-          minItems: 0
-          ui:options:
-            addable: true
-            removable: true
-          items:
-            title: Enter ID of the security group
-            description: ID of the security group
-            type: string
+
   steps:
     # Create controlplane repository
     - id: create-repo-controlplane
