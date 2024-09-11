@@ -67,7 +67,7 @@ spec:
           type: string
           description: ID of the backend subnet where deploy the data nodes
         securityGroupId:
-          title: Enter ID of the security group
+          title: Enter ID of the security groups
           description: ID of the backend subnet where deploy the data nodes
           type: array
           minItems: 0
