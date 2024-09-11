@@ -20,6 +20,10 @@ spec:
         - vpcId
         - securityGroupIds
       properties:
+        awsAccountId:
+          title: Enter AWS account ID to use
+          type: string
+          description: your AWS account ID
         clusterName:
           title: Enter cluster name to create
           type: string
@@ -54,10 +58,25 @@ spec:
             - 'quality'
             - 'production'
             - 'testing'
-        awsAccountId:
-          title: Enter AWS account ID to use
+        feSubnetId:
+          title: Enter ID of the frontend subnet
           type: string
-          description: your AWS account ID
+          description:  ID of the frontend subnet where deploy the load balancers
+        beSubnetId:
+          title: Enter ID of the backend subnet
+          type: string
+          description: ID of the backend subnet where deploy the data nodes
+        securityGroupId:
+          title: Enter ID of the security group
+          description: ID of the backend subnet where deploy the data nodes
+          type: array
+          minItems: 0
+          ui:options:
+            addable: true
+            orderable: true
+            removable: true
+          items:
+            type: object
   steps:
     # Create controlplane repository
     - id: create-repo-controlplane
