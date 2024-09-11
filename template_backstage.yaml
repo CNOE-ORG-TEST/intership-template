@@ -71,8 +71,12 @@ spec:
           description: ID of the backend subnet where deploy the data nodes
           type: array
           minItems: 0
+          ui:options:
+            addable: true
+            orderable: true
+            removable: true
           items:
-            type: object
+            type: string
   steps:
     # Create controlplane repository
     - id: create-repo-controlplane
