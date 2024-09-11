@@ -9,15 +9,15 @@ spec:
   type: job
   parameters:
     - title: Configuration Options
-      required:
-        - eksVersion
-        - awsRegion
-        - clusterName
-        - awsAccountId
-        - beSubnetIds
-        - feSubnetIds
-        - environmentTag
-        - vpcId
+      #required:
+        #- eksVersion
+        #- awsRegion
+        #- clusterName
+        #- awsAccountId
+        #- beSubnetIds
+        #- feSubnetIds
+        #- environmentTag
+        #- vpcId
         #- securityGroupIds
       properties:
         awsAccountId:
