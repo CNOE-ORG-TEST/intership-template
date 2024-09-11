@@ -37,7 +37,7 @@ spec:
         environmentTag:
           title: Enter environment
           type: string
-          default: development
+          default: testing
           enum:
             - development
             - quality
