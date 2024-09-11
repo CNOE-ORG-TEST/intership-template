@@ -70,7 +70,7 @@ spec:
           title: Enter ID of the backend subnet
           type: string
           description: ID of the backend subnet where deploy the data nodes
-        securityGroupId:
+        securityGroupIds:
           title: Enter IDs of the security groups
           description: IDs of the security groups
           type: array
@@ -120,7 +120,7 @@ spec:
           environmentTag: ${{ parameters.environmentTag }}
           feSubnetId: ${{ parameters.feSubnetId }}
           beSubnetId: ${{ parameters.beSubnetId }}
-          securityGroupIds: ${{ parameters.securityGroupId}}
+          securityGroupIds: ${{ parameters.securityGroupIds}}
           vpcId: ${{ parameters.vpcId }}
 
     # Push files to controlplane repository
