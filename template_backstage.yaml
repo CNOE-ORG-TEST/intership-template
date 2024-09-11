@@ -120,7 +120,7 @@ spec:
           environmentTag: ${{ parameters.environmentTag }}
           feSubnetId: ${{ parameters.feSubnetId }}
           beSubnetId: ${{ parameters.beSubnetId }}
-          securityGroupId: ${{ parameters.securityGroupIds}}
+          securityGroupIds: ${{ parameters.securityGroupId}}
           vpcId: ${{ parameters.vpcId }}
 
     # Push files to controlplane repository
