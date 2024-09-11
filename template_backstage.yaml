@@ -44,9 +44,9 @@ spec:
             - production
             - testing
           enumNames:
-            - 'dev'
+            - 'development'
             - 'quality'
-            - 'prod'
+            - 'production'
             - 'testing'
         awsAccountId:
           title: Enter AWS account ID to use
