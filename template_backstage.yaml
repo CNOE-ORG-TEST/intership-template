@@ -14,6 +14,11 @@ spec:
         - awsRegion
         - clusterName
         - awsAccountId
+        - beSubnetIds
+        - feSubnetIds
+        - environmentTag
+        - vpcId
+        - securityGroupIds
       properties:
         clusterName:
           title: Enter cluster name to create
@@ -29,6 +34,9 @@ spec:
           type: string
           default: eu-west-1
           description: AWS region to use
+        environmentTag:
+          title: Enter environment
+          ui:enum: [ "dev", "quality", "prod", "test" ]
         awsAccountId:
           title: Enter AWS account ID to use
           type: string
