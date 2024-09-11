@@ -58,6 +58,10 @@ spec:
             - 'quality'
             - 'production'
             - 'testing'
+        vpcId:
+          title: Enter ID of the vpc
+          type: string
+          description: ID of the vpc where deploy the cluster
         feSubnetId:
           title: Enter ID of the frontend subnet
           type: string
@@ -67,16 +71,16 @@ spec:
           type: string
           description: ID of the backend subnet where deploy the data nodes
         securityGroupId:
-          title: Enter ID of the security groups
-          description: ID of the backend subnet where deploy the data nodes
+          title: Enter IDs of the security groups
+          description: IDs of the security groups
           type: array
           minItems: 0
           ui:options:
             addable: true
             removable: true
           items:
-            title: Enter ID of the security groups
-            description: ID of the backend subnet where deploy the data nodes
+            title: Enter ID of the security group
+            description: ID of the security group
             type: string
   steps:
     # Create controlplane repository
@@ -108,9 +112,15 @@ spec:
         url: ./applicative-template/
         targetPath: ./applicative-template-compiled/
         values:
-          clusterName: ${{ parameters.clusterName }}
+          clusterName: "${{ parameters.clusterName }}-${{ parameters.environmentTag }}"
           eksVersion: ${{ parameters.eksVersion }}
           region: ${{ parameters.awsRegion }}
+          awsAccountId: ${{ parameters.awsAccountId }}
+          environmentTag: ${{ parameters.environmentTag }}
+          feSubnetId: ${{ parameters.feSubnetId }}
+          beSubnetId: ${{ parameters.beSubnetId }}
+          securityGroupId: ${{ parameters.securityGroupId }}
+          vpcId: ${{ parameters.vpcId }}
 
     # Push files to controlplane repository
     - id: init-controlplane-repo
@@ -147,13 +157,13 @@ spec:
         amount: 5
 
     # Apply controlplane workflow
-    - id: apply-controlplane-workflow
-      name: Apply controlplane workflow
-      action: cnoe:kubernetes:apply
-      input:
-        manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
-        namespaced: true
-        clusterName: local
+    #- id: apply-controlplane-workflow
+    #  name: Apply controlplane workflow
+    #  action: cnoe:kubernetes:apply
+    #  input:
+    #    manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
+    #    namespaced: true
+    #    clusterName: local
 
     # Apply dataplane workflow
     #- id: apply-dataplane-workflow

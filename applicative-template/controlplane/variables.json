@@ -1,6 +1,11 @@
 {
   "clusterName": "${{values.clusterName}}",
-  "region": "${{values.region}}",
   "eksVersion": "${{values.eksVersion}}",
-  "awsAccountId": "${{values.awsAccountId}}"
+  "region": "${{values.region}}",
+  "awsAccountId": "${{values.awsAccountId}}",
+  "vpcId": "${{values.vpcId}}",
+  "feSubnetId": "${{values.beSubnetId}}",
+  "beSubnetId": "${{values.beSubnetId}}",
+  "securityGroupIds": "${{values.securityGroupIds}}",
+  "env": "${{values.environmentTag}}"
 }
