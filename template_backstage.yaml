@@ -18,7 +18,7 @@ spec:
         - feSubnetIds
         - environmentTag
         - vpcId
-        - securityGroupIds
+        #- securityGroupIds
       properties:
         awsAccountId:
           title: Enter AWS account ID to use
