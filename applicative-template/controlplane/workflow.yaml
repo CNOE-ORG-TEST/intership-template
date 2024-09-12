@@ -10,7 +10,7 @@ spec:
     - name: shared-volume-controlplane
       hostPath:
         path: /mnt/shared-controlplane
-        type: Directory
+        type: DirectoryOrCreate
   templates:
     - name: main
       steps:
