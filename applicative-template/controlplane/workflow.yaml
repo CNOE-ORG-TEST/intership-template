@@ -25,7 +25,7 @@ spec:
             depends: "deploy.Succeeded"
         - - name: test
             template: test-step
-            depends: "test.Succeeded"
+            depends: "postDeploy.Succeeded"
 
     # definition of the pull step
     - name: pull-step
