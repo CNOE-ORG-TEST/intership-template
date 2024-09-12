@@ -100,7 +100,7 @@ spec:
       name: Create controlplane repository
       action: github:repo:create
       input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Controlplane&organization=CNOE-ORG-TEST
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Controlplane&organization=CNOE-ORG-TEST
 
     # Create dataplane repository
     #- id: create-repo-dataplane
