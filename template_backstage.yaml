@@ -10,15 +10,10 @@ spec:
   parameters:
     - title: Configuration Options
       required:
-        #- eksVersion
         - awsRegion
         - clusterName
         - awsAccountId
-        #- beSubnetIds
-        #- feSubnetIds
-        #- environmentTag
         - vpcId
-        #- securityGroupIds
       properties:
         awsAccountId:
           title: Enter AWS account ID to use
