@@ -16,16 +16,16 @@ spec:
             template: pull-step
         - - name: check
             template: check-step
-            depends: "pull.Succeeded"
+            when: "{{steps.pull.outputs.result}} == Succeeded"
         - - name: deploy
             template: deploy-step
-            depends: "check.Succeeded"
+            when: "{{steps.check.outputs.result}} == Succeeded"
         - - name: postDeploy
             template: postDeploy-step
-            depends: "deploy.Succeeded"
+            when: "{{steps.deploy.outputs.result}} == Succeeded"
         - - name: test
             template: test-step
-            depends: "postDeploy.Succeeded"
+            when: "{{steps.postDeploy.outputs.result}} == Succeeded"
 
     # definition of the pull step
     - name: pull-step
