@@ -8,7 +8,9 @@ spec:
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: shared-volume-controlplane
-      emptyDir: { }
+      hostPath:
+        path: /mnt/shared-controlplane
+        type: Directory
   templates:
     - name: main
       steps:
