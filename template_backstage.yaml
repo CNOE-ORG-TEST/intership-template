@@ -103,18 +103,18 @@ spec:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Controlplane&organization=CNOE-ORG-TEST
 
     # Create dataplane repository
-    #- id: create-repo-dataplane
-    #  name: Create dataplane repository
-    #  action: github:repo:create
-    #  input:
-    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
+    - id: create-repo-dataplane
+      name: Create dataplane repository
+      action: github:repo:create
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Dataplane&organization=CNOE-ORG-TEST
 
     # Create infrplane repository
-    #- id: create-repo-infrplane
-    #  name: Create infrplane repository
-    #  action: github:repo:create
-    #  input:
-    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
+    - id: create-repo-infrplane
+      name: Create infrplane repository
+      action: github:repo:create
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Infrplane&organization=CNOE-ORG-TEST
 
     # Set value to parameters
     - id: fetch-applicative-template
@@ -139,27 +139,27 @@ spec:
       name: Initialize controlplane repository
       action: github:repo:push
       input:
-        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Controlplane&organization=CNOE-ORG-TEST
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Controlplane&organization=CNOE-ORG-TEST
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/controlplane
 
     # Push files to dataplane repository
-    #- id: init-dataplane-repo
-    #  name: Initialize dataplane repository
-    #  action: github:repo:push
-    #  input:
-    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Dataplane&organization=CNOE-ORG-TEST
-    #    defaultBranch: main
-    #    sourcePath: ./applicative-template-compiled/dataplane
+    - id: init-dataplane-repo
+      name: Initialize dataplane repository
+      action: github:repo:push
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Dataplane&organization=CNOE-ORG-TEST
+        defaultBranch: main
+        sourcePath: ./applicative-template-compiled/dataplane
 
     # Push files to infrplane repository
-    #- id: init-infrplane-repo
-    #  name: Initialize infrplane repository
-    #  action: github:repo:push
-    #  input:
-    #    repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}Infrplane&organization=CNOE-ORG-TEST
-    #    defaultBranch: main
-    #    sourcePath: ./applicative-template-compiled/infrplane
+    - id: init-infrplane-repo
+      name: Initialize infrplane repository
+      action: github:repo:push
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Infrplane&organization=CNOE-ORG-TEST
+        defaultBranch: main
+        sourcePath: ./applicative-template-compiled/infrplane
 
     # Waiting for the repo to be ready
     - id: wait
@@ -169,13 +169,13 @@ spec:
         amount: 5
 
     # Apply controlplane workflow
-    #- id: apply-controlplane-workflow
-    #  name: Apply controlplane workflow
-    #  action: cnoe:kubernetes:apply
-    #  input:
-    #    manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
-    #    namespaced: true
-    #    clusterName: local
+    - id: apply-controlplane-workflow
+      name: Apply controlplane workflow
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
+        namespaced: true
+        clusterName: local
 
     # Apply dataplane workflow
     #- id: apply-dataplane-workflow
