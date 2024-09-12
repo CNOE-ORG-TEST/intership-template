@@ -16,12 +16,16 @@ spec:
             template: pull-step
         - - name: check
             template: check-step
+            depends: "pull.Succeeded"
         - - name: deploy
             template: deploy-step
+            depends: "check.Succeeded"
         - - name: postDeploy
             template: postDeploy-step
+            depends: "deploy.Succeeded"
         - - name: test
             template: test-step
+            depends: "test.Succeeded"
 
     # definition of the pull step
     - name: pull-step

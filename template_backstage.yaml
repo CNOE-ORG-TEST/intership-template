@@ -129,8 +129,8 @@ spec:
           region: ${{ parameters.awsRegion }}
           awsAccountId: ${{ parameters.awsAccountId }}
           environmentTag: ${{ parameters.environmentTag }}
-          feSubnetId: ${{ parameters.feSubnetIds }}
-          beSubnetId: ${{ parameters.beSubnetIds }}
+          feSubnetIds: ${{ parameters.feSubnetIds }}
+          beSubnetIds: ${{ parameters.beSubnetIds }}
           securityGroupIds: ${{ parameters.securityGroupIds}}
           vpcId: ${{ parameters.vpcId }}
 
