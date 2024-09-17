@@ -67,7 +67,7 @@ spec:
             mountPath: /shared
 
     # definition of the post deploy step
-    - name: postDeploy-step
+    - name: post-deploy-step
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/controlplane-post-deploy
         volumeMounts:
