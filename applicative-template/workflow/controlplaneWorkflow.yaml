@@ -11,6 +11,12 @@ spec:
       hostPath:
         path: /mnt/shared-controlplane
         type: DirectoryOrCreate
+    - name: variables-volume
+      configMap:
+        name: variables-cm
+        items:
+          - key: variables.json
+            path: config.json
   templates:
     - name: main
       steps:
@@ -32,6 +38,8 @@ spec:
         volumeMounts:
           - name: shared-volume-controlplane
             mountPath: /shared
+          - name: variables-volume
+            mountPath: /etc/config
         env:
           - name: GITHUB_REPO
             value: "CNOE-ORG-TEST/${{values.clusterName}}Controlplane"

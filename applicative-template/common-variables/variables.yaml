@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: my-config
+  name: variables-cm
   namespace: argo
 data:
-  config.json: |
+  variables.json: |
     {
       "clusterName": "${{values.clusterName}}",
       "region": "${{values.region}}",
