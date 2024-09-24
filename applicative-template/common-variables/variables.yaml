@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+  namespace: argo
+data:
+  config.json: |
+    {
+      "clusterName": "${{values.clusterName}}",
+      "region": "${{values.region}}",
+      "awsAccountId": "${{values.awsAccountId}}",
+      "vpcId": "${{values.vpcId}}",
+      "feSubnetIds": "${{values.feSubnetIds}}",
+      "beSubnetIds": "${{values.beSubnetIds}}",
+      "securityGroupIds": "${{values.securityGroupIds}}",
+      "env": "${{values.environmentTag}}"
+    }

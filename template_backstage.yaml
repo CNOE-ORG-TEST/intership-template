@@ -161,6 +161,15 @@ spec:
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/infrplane
 
+    # Apply controlplane workflow
+    - id: apply-variables-cm
+      name: Apply configmap with variables used from all pipelines
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/common-variables/variables.yaml
+        namespaced: true
+        clusterName: local
+
     # Waiting for the repo to be ready
     - id: wait
       name: Waiting for the repo to be ready
@@ -173,7 +182,7 @@ spec:
       name: Apply controlplane workflow
       action: cnoe:kubernetes:apply
       input:
-        manifestPath: ./applicative-template-compiled/controlplane/workflow.yaml
+        manifestPath: ./applicative-template-compiled/workflow/controlplaneWorkflow.yaml
         namespaced: true
         clusterName: local
 
@@ -182,7 +191,7 @@ spec:
     #  name: Apply dataplane workflow
     #  action: cnoe:kubernetes:apply
     #  input:
-    #    manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
+    #    manifestPath: ./applicative-template/workflow/dataplaneWorkflow.yaml
     #    namespaced: true
     #    clusterName: local
         #clusterName: cnoe-test-cluster
@@ -192,16 +201,16 @@ spec:
     #  name: Apply infrplane workflow
     #  action: cnoe:kubernetes:apply
     #  input:
-    #    manifestPath: ./applicative-template-compiled/dataplane/workflow.yaml
+    #    manifestPath: ./applicative-template/workflow/infrplaneWorkflow.yaml
     #    namespaced: true
     #    clusterName: local
 
-    #- id: register-workflow
-    #  name: Register workflow
-    #  action: catalog:register
-    #  input:
-    #    repoContentsUrl: ${{ steps['init-applicative-repo'].output.repoContentsUrl }}
-    #    catalogInfoPath: "/catalog-info-workflow.yaml"
+    - id: register-controlplane-workflow
+      name: Register workflow
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['init-controlplane-repo'].output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info-workflow.yaml"
 
     # - id: register-cd
     #   name: Register cd
