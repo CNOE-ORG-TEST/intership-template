@@ -13,10 +13,10 @@ spec:
         type: DirectoryOrCreate
     - name: variables-volume
       configMap:
-        name: variables-cm
+        name: variables-${{values.clusterName}}-cm
         items:
           - key: variables.json
-            path: config.json
+            path: variables.json
   templates:
     - name: main
       steps:

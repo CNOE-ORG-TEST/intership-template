@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: variables-cm
+  name: variables-${{values.clusterName}}-cm
   namespace: argo
 data:
   variables.json: |
