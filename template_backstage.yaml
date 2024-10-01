@@ -154,7 +154,7 @@ spec:
         isSpot:
           title: Set if the instances are or not spot instances
           default: 'false'
-          type: boolean
+          type: string
           enum:
             - 'true'
             - 'false'
@@ -166,7 +166,7 @@ spec:
         isGraviton:
           title: Set if the instances are or not graviton
           default: 'false'
-          type: boolean
+          type: string
           enum:
             - 'true'
             - 'false'
@@ -178,7 +178,7 @@ spec:
         isGpu:
           title: Set if the instances have or not GPU
           default: 'false'
-          type: boolean
+          type: string
           enum:
             - 'true'
             - 'false'
