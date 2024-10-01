@@ -26,8 +26,7 @@
         "taints":"${{values.taints}}",
         "labels":"${{values.labels}}",
         "machine_size":[
-          "m6i.2xlarge",
-          "m5.2xlarge"
+          "m6i.2xlarge"
         ],
         "instances_in_parallel":"4",
         "pause_time":"4"
