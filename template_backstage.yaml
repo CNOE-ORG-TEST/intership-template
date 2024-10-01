@@ -8,9 +8,8 @@ spec:
   owner: ro.distefano
   type: job
   parameters:
-    - title: Configuration Options
+    - title: Controlplane Options
       required:
-        - awsRegion
         - clusterName
         - awsAccountId
         - vpcId
@@ -19,9 +18,11 @@ spec:
           title: Enter AWS account ID to use
           type: string
           description: your AWS account ID
+          pattern: '^\d{12}$'
         clusterName:
           title: Enter cluster name to create
           type: string
+          pattern: '^([a-z0-9]+)(-[a-z0-9]+)*$'
           description: repositories/cluster name
         eksVersion:
           title: Enter EKS version to use
@@ -39,6 +40,32 @@ spec:
           type: string
           default: eu-west-1
           description: AWS region to use
+          enum:
+            - eu-west-1
+            - eu-west-2
+            - eu-west-3
+            - eu-central-1
+            - eu-central-2
+            - eu-south-1
+            - eu-south-2
+            - eu-north-1
+            - us-east-1
+            - us-east-2
+            - us-west-1
+            - us-west-2
+          enumNames:
+            - "eu-west-1"
+            - "eu-west-2"
+            - "eu-west-3"
+            - "eu-central-1"
+            - "eu-central-2"
+            - "eu-south-1"
+            - "eu-south-2"
+            - "eu-north-1"
+            - "us-east-1"
+            - "us-east-2"
+            - "us-west-1"
+            - "us-west-2"
         environmentTag:
           title: Enter environment
           type: string
@@ -57,6 +84,7 @@ spec:
           title: Enter ID of the vpc my
           type: string
           description: ID of the vpc where deploy the cluster
+          pattern: '^vpc-[a-f0-9]{8,17}$'
         feSubnetIds:
           title: Enter IDs of the frontend subnets
           description:  IDs of the frontend subnets where deploy the load balancers
@@ -69,6 +97,7 @@ spec:
             title: Enter ID of the frontend subnet
             description: ID of the frontend subnet where deploy the data nodes
             type: string
+            pattern: "^subnet-[a-f0-9]{8,17}$"
         beSubnetIds:
           title: Enter IDs of the backend subnets
           description: ID of the backend subnets where deploy the data nodes
@@ -81,6 +110,7 @@ spec:
             title: Enter ID of the backend subnet
             description: ID of the backend subnet where deploy the data nodes
             type: string
+            pattern: "^subnet-[a-f0-9]{8,17}$"
         securityGroupIds:
           title: Enter IDs of the security groups
           description: IDs of the security groups
@@ -92,6 +122,70 @@ spec:
           items:
             title: Enter ID of the security group
             description: ID of the security group
+            type: string
+            pattern: "^sg-[a-f0-9]{8,17}$"
+
+    - title: Dataplane Options
+      required:
+        - nodeGroupName
+      properties:
+        nodeGroupName:
+          title: Enter node group name
+          type: string
+          description: it will add as tag and used for CloudFormation name
+        volumeType:
+          title: Enter the type of the volume
+          type: string
+          description: type of the volume attach to nodes
+          enum:
+            - gp2
+            - gp3
+          enumNames:
+            - 'gp2'
+            - 'gp3'
+        volumeSize:
+          title: Enter the size of the volume
+          type: string
+          description: size of the volume attach to nodes
+        volumeIOPS:
+          title: Enter the input/output rate of the volume
+          type: string
+          description: input/output rate of the volume attach to nodes
+        isSpot:
+          title: Set if the instances is or not instances
+          type: boolean
+          ui:widget: radio
+        isGraviton:
+          title: Set if the instances is or not graviton
+          type: boolean
+          ui:widget: radio
+        isGpu:
+          title: Set if the instances has or not GPU
+          type: boolean
+          ui:widget: radio
+        taints:
+          title: Enter taints of the group node
+          description: taints are useful to specify pod that can't be scheduled in this group node
+          type: array
+          minItems: 0
+          ui:options:
+            addable: true
+            removable: true
+          items:
+            title: Enter a taint
+            description: taint is useful to specify pod that can't be scheduled in this group node
+            type: string
+        labels:
+          title: Enter labels of the group node
+          description: labels are useful to specify in witch node a pod have to be scheduled
+          type: array
+          minItems: 1
+          ui:options:
+            addable: true
+            removable: true
+          items:
+            title: Enter a label
+            description: labels are useful to specify in witch node a pod have to be scheduled
             type: string
 
   steps:
@@ -178,23 +272,22 @@ spec:
         amount: 5
 
     # Apply controlplane workflow
-    - id: apply-controlplane-workflow
-      name: Apply controlplane workflow
-      action: cnoe:kubernetes:apply
-      input:
-        manifestPath: ./applicative-template-compiled/workflow/controlplaneWorkflow.yaml
-        namespaced: true
-        clusterName: local
-
-    # Apply dataplane workflow
-    #- id: apply-dataplane-workflow
-    #  name: Apply dataplane workflow
+    #- id: apply-controlplane-workflow
+    #  name: Apply controlplane workflow
     #  action: cnoe:kubernetes:apply
     #  input:
-    #    manifestPath: ./applicative-template/workflow/dataplaneWorkflow.yaml
+    #    manifestPath: ./applicative-template-compiled/workflow/controlplaneWorkflow.yaml
     #    namespaced: true
     #    clusterName: local
-        #clusterName: cnoe-test-cluster
+
+    # Apply dataplane workflow
+    - id: apply-dataplane-workflow
+      name: Apply dataplane workflow
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template/workflow/dataplaneWorkflow.yaml
+        namespaced: true
+        clusterName: local
 
     # Apply infrplane workflow
     #- id: apply-infrplane-workflow
