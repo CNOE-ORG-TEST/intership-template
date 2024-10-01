@@ -89,7 +89,7 @@ spec:
           title: Enter IDs of the frontend subnets
           description:  IDs of the frontend subnets where deploy the load balancers
           type: array
-          minItems: 0
+          minItems: 3
           ui:options:
             addable: true
             removable: true
@@ -102,7 +102,7 @@ spec:
           title: Enter IDs of the backend subnets
           description: ID of the backend subnets where deploy the data nodes
           type: array
-          minItems: 0
+          minItems: 3
           ui:options:
             addable: true
             removable: true
@@ -115,7 +115,7 @@ spec:
           title: Enter IDs of the security groups
           description: IDs of the security groups
           type: array
-          minItems: 0
+          minItems: 1
           ui:options:
             addable: true
             removable: true
