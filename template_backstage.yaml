@@ -153,18 +153,16 @@ spec:
           description: input/output rate of the volume attach to nodes
         isSpot:
           title: Set if the instances are or not spot instances
-          type: array
-          items:
-            default: 'false'
-            type: boolean
-            enum:
-              - 'true'
-              - 'false'
-            enumNames:
-              - 'Yes'
-              - 'No'
+          default: 'false'
+          type: boolean
+          enum:
+            - 'true'
+            - 'false'
+          enumNames:
+            - 'Yes'
+            - 'No'
           uniqueItems: true
-          ui:widget: checkboxes
+          ui:widget: radio
         isGraviton:
           title: Set if the instances are or not graviton
           type: boolean
