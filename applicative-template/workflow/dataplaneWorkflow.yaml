@@ -9,6 +9,12 @@ spec:
   volumes:
     - name: shared-volume-dataplane
       emptyDir: { }
+    - name: variables-volume
+      configMap:
+        name: variables-${{values.clusterName}}-cm
+        items:
+          - key: variables.json
+            path: variables.json
   templates:
     - name: main
       steps:
