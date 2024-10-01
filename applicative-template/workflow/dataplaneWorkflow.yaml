@@ -8,7 +8,9 @@ spec:
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: shared-volume-dataplane
-      emptyDir: { }
+      hostPath:
+        path: /mnt/shared-dataplane
+        type: DirectoryOrCreate
     - name: variables-volume
       configMap:
         name: variables-${{values.clusterName}}-cm
