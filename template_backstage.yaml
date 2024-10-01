@@ -285,7 +285,7 @@ spec:
       name: Apply dataplane workflow
       action: cnoe:kubernetes:apply
       input:
-        manifestPath: ./applicative-template/workflow/dataplaneWorkflow.yaml
+        manifestPath: ./applicative-template-compiled/workflow/dataplaneWorkflow.yaml
         namespaced: true
         clusterName: local
 
