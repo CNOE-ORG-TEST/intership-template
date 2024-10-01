@@ -165,11 +165,27 @@ spec:
           ui:widget: radio
         isGraviton:
           title: Set if the instances are or not graviton
+          default: 'false'
           type: boolean
+          enum:
+            - 'true'
+            - 'false'
+          enumNames:
+            - 'Yes'
+            - 'No'
+          uniqueItems: true
           ui:widget: radio
         isGpu:
           title: Set if the instances have or not GPU
+          default: 'false'
           type: boolean
+          enum:
+            - 'true'
+            - 'false'
+          enumNames:
+            - 'Yes'
+            - 'No'
+          uniqueItems: true
           ui:widget: radio
         taints:
           title: Enter taints of the group node
