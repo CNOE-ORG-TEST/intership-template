@@ -227,6 +227,16 @@ spec:
           beSubnetIds: ${{ parameters.beSubnetIds }}
           securityGroupIds: ${{ parameters.securityGroupIds}}
           vpcId: ${{ parameters.vpcId }}
+          nodeGroupName: ${{ parameters.nodeGroupName }}
+          volumeType: ${{ parameters.volumeType }}
+          volumeSize: ${{ parameters.volumeSize }}
+          volumeIOPS: ${{ parameters.volumeIOPS }}
+          isSpot: ${{ parameters.isSpot }}
+          isGravitation: ${{ parameters.isGravitation }}
+          isGpu: ${{ parameters.isGpu }}
+          taints: ${{ parameters.taints }}
+          labels: ${{ parameters.labels }}
+
 
     # Push files to controlplane repository
     - id: init-controlplane-repo
