@@ -137,6 +137,7 @@ spec:
           title: Enter the type of the volume
           type: string
           description: type of the volume attach to nodes
+          default: gp3
           enum:
             - gp2
             - gp3
