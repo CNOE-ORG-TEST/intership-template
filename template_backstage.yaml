@@ -265,6 +265,7 @@ spec:
           isGpu: ${{ parameters.isGpu }}
           taints: ${{ parameters.taints }}
           labels: ${{ parameters.labels }}
+          keyName: ${{ parameters.keyName }}
 
 
     # Push files to controlplane repository
