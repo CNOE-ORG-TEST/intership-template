@@ -14,4 +14,5 @@ data:
       "beSubnetIds": "${{values.beSubnetIds}}",
       "securityGroupIds": "${{values.securityGroupIds}}",
       "env": "${{values.environmentTag}}"
+      "keyName": "${{values.keyName}}"
     }

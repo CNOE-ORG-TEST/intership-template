@@ -133,6 +133,10 @@ spec:
           title: Enter node group name
           type: string
           description: it will add as tag and used for CloudFormation name
+        keyName:
+          title: Enter instances access key
+          type: string
+          description: name of the aws pem access key useful to access with ssh to the nodes
         volumeType:
           title: Enter the type of the volume
           type: string
