@@ -13,6 +13,6 @@ data:
       "feSubnetIds": "${{values.feSubnetIds}}",
       "beSubnetIds": "${{values.beSubnetIds}}",
       "securityGroupIds": "${{values.securityGroupIds}}",
-      "env": "${{values.environmentTag}}"
+      "env": "${{values.environmentTag}}",
       "keyName": "${{values.keyName}}"
     }
