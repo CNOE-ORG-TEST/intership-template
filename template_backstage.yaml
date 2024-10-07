@@ -145,7 +145,7 @@ spec:
           title: Enter the maximum number of instances
           type: integer
           description: maximum number of instances to run
-        nodeDesired:
+        nodeDesidered:
           title: Enter the desired number of instances
           type: integer
           description: desired number of instances to run
@@ -279,8 +279,8 @@ spec:
           labels: ${{ parameters.labels }}
           keyName: ${{ parameters.keyName }}
           nodeMin: ${{ parameters.nodeMin }}
-          nodeMax: ${{ parameters.nodeMin }}
-          nodeDesired: ${{ parameters.nodeMin }}
+          nodeMax: ${{ parameters.nodeMax }}
+          nodeDesidered: ${{ parameters.nodeDesidered }}
 
 
     # Push files to controlplane repository
