@@ -137,6 +137,18 @@ spec:
           title: Enter instances access key
           type: string
           description: name of the aws pem access key useful to access with ssh to the nodes
+        nodeMin:
+          title: Enter the minimum number of instances
+          type: integer
+          description: minimum number of instances to run
+        nodeMax:
+          title: Enter the maximum number of instances
+          type: integer
+          description: maximum number of instances to run
+        nodeDesired:
+          title: Enter the desired number of instances
+          type: integer
+          description: desired number of instances to run
         volumeType:
           title: Enter the type of the volume
           type: string
@@ -266,6 +278,9 @@ spec:
           taints: ${{ parameters.taints }}
           labels: ${{ parameters.labels }}
           keyName: ${{ parameters.keyName }}
+          nodeMin: ${{ parameters.nodeMin }}
+          nodeMax: ${{ parameters.nodeMin }}
+          nodeDesired: ${{ parameters.nodeMin }}
 
 
     # Push files to controlplane repository

@@ -8,9 +8,9 @@
         "backup_parameter":"no_backup",
         "tag_nodegroup_name":"${{values.nodeGroupName}}",
         "subnet_az":"",
-        "node_min":"0",
-        "node_max":"0",
-        "node_desidered":"0",
+        "node_min":"${{values.nodeMin}}",
+        "node_max":"${{values.nodeMax}}",
+        "node_desidered":"${{values.nodeDesidered}}",
         "max_pods":"44",
         "ondemand_base_capacity":"0",
         "node_volume":{
