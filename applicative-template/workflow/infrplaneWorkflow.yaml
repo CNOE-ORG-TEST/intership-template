@@ -13,16 +13,16 @@ spec:
     - name: main
       steps:
         - - name: pull
-            template: pull-step
+            template: infrplane-pull-step
         - - name: customization
-            template: customization-step
+            template: infrplane-customization-step
         - - name: deploy
-            template: deploy-step
+            template: infrplane-deploy-step
         - - name: test
-            template: test-step
+            template: infrplane-test-step
 
     # definition of the pull step
-    - name: pull-step
+    - name: infrplane-pull-step
       container:
         image: busybox
         command: ["sh", "-c"]
@@ -40,7 +40,7 @@ spec:
                 key: GITHUB_TOKEN
 
     # definition of the customization step
-    - name: customization-step
+    - name: infrplane-customization-step
       container:
         image: busybox
         command: ["sh", "-c"]
@@ -50,7 +50,7 @@ spec:
             mountPath: /shared
 
     # definition of the deploy step
-    - name: deploy-step
+    - name: infrplane-deploy-step
       container:
         image: busybox
         command: ["sh", "-c"]
@@ -60,7 +60,7 @@ spec:
             mountPath: /shared
 
     # definition of the test step
-    - name: test-step
+    - name: infrplane-test-step
       container:
         image: busybox
         command: ["sh", "-c"]

@@ -21,16 +21,16 @@ spec:
     - name: main
       steps:
         - - name: pull
-            template: pull-step
+            template: dataplane-pull-step
         - - name: check
-            template: check-step
+            template: dataplane-check-step
         - - name: deploy
-            template: deploy-step
+            template: dataplane-deploy-step
         - - name: test
-            template: test-step
+            template: dataplane-test-step
 
     # definition of the pull step
-    - name: pull-step
+    - name: dataplane-pull-step
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-pull
         volumeMounts:
@@ -48,7 +48,7 @@ spec:
                 key: GITHUB_TOKEN
 
     # definition of the check step
-    - name: check-step
+    - name: dataplane-check-step
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-check
         volumeMounts:
@@ -64,7 +64,7 @@ spec:
                 key: GITHUB_TOKEN
 
     # definition of the deploy step
-    - name: deploy-step
+    - name: dataplane-deploy-step
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-deploy
         volumeMounts:
@@ -72,7 +72,7 @@ spec:
             mountPath: /shared
 
     # definition of the test step
-    - name: test-step
+    - name: dataplane-test-step
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-test
         volumeMounts:
