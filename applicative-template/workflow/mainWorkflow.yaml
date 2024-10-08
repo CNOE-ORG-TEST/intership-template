@@ -5,6 +5,22 @@ metadata:
   namespace: argo
 spec:
   entrypoint: main
+  serviceAccountName: argo-workflows-loki-sa
+  volumes:
+    - name: shared-volume-controlplane
+      hostPath:
+        path: /mnt/shared-controlplane
+        type: DirectoryOrCreate
+    - name: shared-volume-dataplane
+      hostPath:
+        path: /mnt/shared-dataplane
+        type: DirectoryOrCreate
+    - name: variables-volume
+      configMap:
+        name: variables-${{values.clusterName}}-cm
+        items:
+          - key: variables.json
+            path: variables.json
   templates:
     - name: main
       steps:
