@@ -10,11 +10,11 @@ spec:
       steps:
         - - name: controlplane
             templateRef:
-              name: build-controlplane-${{values.clusterName}
+              name: build-controlplane-${{values.clusterName}}
               template: main
         - - name: dataplane
             templateRef:
-              name: build-dataplane-${{values.clusterName}
+              name: build-dataplane-${{values.clusterName}}
               template: main
 #        - - name: infrplane
 #            templateRef:
