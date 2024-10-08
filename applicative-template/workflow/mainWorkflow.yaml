@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  generateName: loki-build-cluster-
+  namespace: argo
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      steps:
+        - - name: controlplane
+            templateRef:
+              name: build-controlplane-${{values.clusterName}
+              template: main
+        - - name: dataplane
+            templateRef:
+              name: build-dataplane-${{values.clusterName}
+              template: main
+#        - - name: infrplane
+#            templateRef:
+#              name: build-infrplane-${{values.clusterName}}
+#              template: main

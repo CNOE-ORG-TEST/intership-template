@@ -327,20 +327,29 @@ spec:
         amount: 5
 
     # Apply controlplane workflow
-    #- id: apply-controlplane-workflow
-    #  name: Apply controlplane workflow
-    #  action: cnoe:kubernetes:apply
-    #  input:
-    #    manifestPath: ./applicative-template-compiled/workflow/controlplaneWorkflow.yaml
-    #    namespaced: true
-    #    clusterName: local
+    - id: apply-controlplane-workflow-template
+      name: Apply controlplane workflow template
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/workflow/controlplaneWorkflow.yaml
+        namespaced: true
+        clusterName: local
 
     # Apply dataplane workflow
-    - id: apply-dataplane-workflow
-      name: Apply dataplane workflow
+    - id: apply-dataplane-workflow-template
+      name: Apply dataplane workflow template
       action: cnoe:kubernetes:apply
       input:
         manifestPath: ./applicative-template-compiled/workflow/dataplaneWorkflow.yaml
+        namespaced: true
+        clusterName: local
+
+    # Apply main workflow (create cluster)
+    - id: apply-main-workflow
+      name: Apply main workflow (create cluster)
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/workflow/mainWorkflow.yaml
         namespaced: true
         clusterName: local
 
