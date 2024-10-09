@@ -24,10 +24,10 @@ spec:
   templates:
     - name: main
       steps:
-#        - - name: controlplane
-#            templateRef:
-#              name: build-controlplane-${{values.clusterName}}
-#              template: main
+        - - name: controlplane
+            templateRef:
+              name: build-controlplane-${{values.clusterName}}
+              template: main
         - - name: dataplane
             templateRef:
               name: build-dataplane-${{values.clusterName}}
