@@ -36,5 +36,5 @@
           }
       }
   },
-  "infrpanel_version": "1.30.4"
+  "infrpanel_version": "${{values.eksVersion}}"
 }
