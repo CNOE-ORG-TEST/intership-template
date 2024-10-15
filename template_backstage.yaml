@@ -244,37 +244,7 @@ spec:
             - 'No'
           uniqueItems: true
           ui:widget: radio
-        clusterAutoscalerExpanderType:
-          title: Enter the type of the autoscaler expander
-          type: string
-          description: expander determines the logic used to choice new node
-          default: least-waste
-          enum:
-            - least-waste
-            - random
-            - most-pods
-            - priority
-          enumNames:
-            - 'least-waste'
-            - 'random'
-            - 'most-pods'
-            - 'priority'
-          visibility:
-            when:
-              - key: "Deploy or not autoscaler plugin"
-                operator: 'equals'
-                value: 'true'
-        clusterAutoscalerDowntime:
-          title: Enter autoscaler downtime
-          type: string
-          default: "10"
-          pattern: "^[0-9]*$"
-          description: the autoscaler downtime it's the minimum time between two downscale
-          visibility:
-            when:
-              - key: "Deploy or not autoscaler plugin"
-                operator: 'equals'
-                value: 'true'
+
         metricServer:
           title: Deploy or not metric plugin
           description: metric plugin allow to monitor nodes/pods resource usage
@@ -288,6 +258,37 @@ spec:
             - 'No'
           uniqueItems: true
           ui:widget: radio
+      dependencies:
+        clusterAutoscaler:
+          allOf:
+            - if:
+                properties:
+                  clusterAutoscaler:
+                    equal: "true"
+              then:
+                properties:
+                  clusterAutoscalerExpanderType:
+                    title: Enter the type of the autoscaler expander
+                    type: string
+                    description: expander determines the logic used to choice new node
+                    default: least-waste
+                    enum:
+                      - least-waste
+                      - random
+                      - most-pods
+                      - priority
+                    enumNames:
+                      - 'least-waste'
+                      - 'random'
+                      - 'most-pods'
+                      - 'priority'
+
+                  clusterAutoscalerDowntime:
+                    title: Enter autoscaler downtime
+                    type: string
+                    default: "10"
+                    pattern: "^[0-9]*$"
+                    description: the autoscaler downtime it's the minimum time between two downscale
 
 
   steps:
