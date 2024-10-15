@@ -36,6 +36,8 @@ spec:
         volumeMounts:
           - name: shared-volume-infrplane
             mountPath: /shared
+          - name: variables-volume
+            mountPath: /etc/config
         env:
           - name: GITHUB_REPO
             value: "CNOE-ORG-TEST/${{values.clusterName}}Infrplane"
