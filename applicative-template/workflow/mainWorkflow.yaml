@@ -32,11 +32,11 @@ spec:
 #            templateRef:
 #              name: build-controlplane-${{values.clusterName}}
 #              template: main
-        - - name: dataplane
-            templateRef:
-              name: build-dataplane-${{values.clusterName}}
-              template: main
-#        - - name: infrplane
+#        - - name: dataplane
 #            templateRef:
-#              name: build-infrplane-${{values.clusterName}}
+#              name: build-dataplane-${{values.clusterName}}
 #              template: main
+        - - name: infrplane
+            templateRef:
+              name: build-infrplane-${{values.clusterName}}
+              template: main
