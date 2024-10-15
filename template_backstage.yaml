@@ -232,7 +232,7 @@ spec:
     - title: Infrplane parameters
       properties:
         clusterAutoscaler:
-          title: Deploy or not autoscaler plugin
+          title: "Deploy or not autoscaler plugin"
           description: autoscaler plugin allow to scale automatically cluster number of nodes
           default: 'false'
           type: string
