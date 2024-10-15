@@ -371,7 +371,7 @@ spec:
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/infrplane
 
-    # Apply controlplane workflow
+    # Apply variables-cm
     - id: apply-variables-cm
       name: Apply configmap with variables used from all pipelines
       action: cnoe:kubernetes:apply
@@ -402,6 +402,15 @@ spec:
       action: cnoe:kubernetes:apply
       input:
         manifestPath: ./applicative-template-compiled/workflow/dataplaneWorkflow.yaml
+        namespaced: true
+        clusterName: local
+
+    # Apply infrplane workflow
+    - id: apply-infrplane-workflow
+      name: Apply infrplane workflow
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/workflow/infrplaneWorkflow.yaml
         namespaced: true
         clusterName: local
 
