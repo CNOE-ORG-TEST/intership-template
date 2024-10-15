@@ -268,7 +268,7 @@ spec:
           title: Enter autoscaler downtime
           type: string
           default: "10"
-          pattern: "^\d+$"
+          pattern: "^[0-9]*$"
           description: the autoscaler downtime it's the minimum time between two downscale
           visibility:
             when:
