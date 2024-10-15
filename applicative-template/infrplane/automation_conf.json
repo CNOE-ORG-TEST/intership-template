@@ -1,11 +1,11 @@
 {
   "infr_components": {
       "aws-cni": {
-          "enabled": "true",
+          "enabled": "${{values.enableAwsCni}}",
           "enableNetworkPolicy": "false"
       },
       "coredns": {
-          "enabled": "true",
+          "enabled": "${{values.enableCoredns}}",
           "resources": {
               "limit_cpu": "300m",
               "limit_ram": "170Mi",
@@ -14,7 +14,7 @@
           }
       },
       "cluster_autoscaler": {
-          "enabled": "true",
+          "enabled": "${{values.enableClusterAutoscaler}}",
           "parameters": {
               "expander": "least-waste",
               "scale_down_time": "10"
@@ -27,7 +27,7 @@
           }
       },
       "metric-server": {
-          "enabled": "true",
+          "enabled": "${{values.enableMetricServer}}",
           "resources": {
               "limit_cpu": "300m",
               "limit_ram": "500Mi",
