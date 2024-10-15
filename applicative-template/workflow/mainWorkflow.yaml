@@ -15,6 +15,10 @@ spec:
       hostPath:
         path: /mnt/shared-dataplane
         type: DirectoryOrCreate
+    - name: shared-volume-infrplane
+      hostPath:
+        path: /mnt/shared-infrplane
+        type: DirectoryOrCreate
     - name: variables-volume
       configMap:
         name: variables-${{values.clusterName}}-cm

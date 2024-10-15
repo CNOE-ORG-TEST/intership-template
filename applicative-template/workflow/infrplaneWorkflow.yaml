@@ -8,7 +8,15 @@ spec:
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: shared-volume-infrplane
-      emptyDir: { }
+      hostPath:
+        path: /mnt/shared-infrplane
+        type: DirectoryOrCreate
+    - name: variables-volume
+      configMap:
+        name: variables-${{values.clusterName}}-cm
+        items:
+          - key: variables.json
+            path: variables.json
   templates:
     - name: main
       steps:
@@ -24,9 +32,7 @@ spec:
     # definition of the pull step
     - name: infrplane-pull-step
       container:
-        image: busybox
-        command: ["sh", "-c"]
-        args: ["echo 'to implement'"]
+        image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/infrplane-pull
         volumeMounts:
           - name: shared-volume-infrplane
             mountPath: /shared
@@ -42,29 +48,39 @@ spec:
     # definition of the customization step
     - name: infrplane-customization-step
       container:
-        image: busybox
-        command: ["sh", "-c"]
-        args: ["echo 'to implement'"]
+        image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/infrplane-customization
         volumeMounts:
           - name: shared-volume-infrplane
             mountPath: /shared
+        env:
+          - name: GITHUB_ORG
+            value: "CNOE-ORG-TEST"
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: github-token-cnoeorg-secret
+                key: GITHUB_TOKEN
 
     # definition of the deploy step
     - name: infrplane-deploy-step
       container:
-        image: busybox
-        command: ["sh", "-c"]
-        args: ["echo 'to implement'"]
+        image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/infrplane-deploy
         volumeMounts:
           - name: shared-volume-infrplane
             mountPath: /shared
+        env:
+          - name: GITHUB_ORG
+            value: "CNOE-ORG-TEST"
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: github-token-cnoeorg-secret
+                key: GITHUB_TOKEN
 
     # definition of the test step
     - name: infrplane-test-step
       container:
-        image: busybox
-        command: ["sh", "-c"]
-        args: ["echo 'to implement'"]
+        image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/infrplane-test
         volumeMounts:
           - name: shared-volume-infrplane
             mountPath: /shared

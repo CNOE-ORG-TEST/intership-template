@@ -1,3 +1,40 @@
 {
-  "controlpanel_version": "1.18.7"
+  "infr_components": {
+      "aws-cni": {
+          "enabled": "true",
+          "enableNetworkPolicy": "false"
+      },
+      "coredns": {
+          "enabled": "true",
+          "resources": {
+              "limit_cpu": "300m",
+              "limit_ram": "170Mi",
+              "request_cpu": "100m",
+              "request_ram": "70Mi"
+          }
+      },
+      "cluster_autoscaler": {
+          "enabled": "true",
+          "parameters": {
+              "expander": "least-waste",
+              "scale_down_time": "10"
+          },
+          "resources": {
+              "limit_cpu": "250m",
+              "limit_ram": "2Gi",
+              "request_cpu": "250m",
+              "request_ram": "2Gi"
+          }
+      },
+      "metric-server": {
+          "enabled": "true",
+          "resources": {
+              "limit_cpu": "300m",
+              "limit_ram": "500Mi",
+              "request_cpu": "100m",
+              "request_ram": "200Mi"
+          }
+      }
+  },
+  "infrpanel_version": "1.30.4"
 }

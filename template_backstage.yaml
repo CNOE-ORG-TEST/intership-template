@@ -8,7 +8,7 @@ spec:
   owner: ro.distefano
   type: job
   parameters:
-    - title: Controlplane Options
+    - title: Controlplane parameters
       required:
         - clusterName
         - awsAccountId
@@ -125,7 +125,7 @@ spec:
             type: string
             pattern: "^sg-[a-f0-9]{8,17}$"
 
-    - title: Dataplane Options
+    - title: Dataplane parameters
       required:
         - nodeGroupName
       properties:
@@ -228,6 +228,67 @@ spec:
             title: Enter a label
             description: labels are useful to specify in witch node a pod have to be scheduled
             type: string
+
+    - title: Infrplane parameters
+      properties:
+        clusterAutoscaler:
+          title: Deploy or not autoscaler plugin
+          description: autoscaler plugin allow to scale automatically cluster number of nodes
+          default: 'false'
+          type: string
+          enum:
+            - 'true'
+            - 'false'
+          enumNames:
+            - 'Yes'
+            - 'No'
+          uniqueItems: true
+          ui:widget: radio
+        clusterAutoscalerExpanderType:
+          title: Enter the type of the autoscaler expander
+          type: string
+          description: expander determines the logic used to choice new node
+          default: least-waste
+          enum:
+            - least-waste
+            - random
+            - most-pods
+            - priority
+          enumNames:
+            - 'least-waste'
+            - 'random'
+            - 'most-pods'
+            - 'priority'
+          visibility:
+            when:
+              - key: "Deploy or not autoscaler plugin"
+                operator: 'equals'
+                value: 'true'
+        clusterAutoscalerDowntime:
+          title: Enter autoscaler downtime
+          type: string
+          default: "10"
+          pattern: "^\d+$"
+          description: the autoscaler downtime it's the minimum time between two downscale
+          visibility:
+            when:
+              - key: "Deploy or not autoscaler plugin"
+                operator: 'equals'
+                value: 'true'
+        metricServer:
+          title: Deploy or not metric plugin
+          description: metric plugin allow to monitor nodes/pods resource usage
+          default: 'false'
+          type: string
+          enum:
+            - 'true'
+            - 'false'
+          enumNames:
+            - 'Yes'
+            - 'No'
+          uniqueItems: true
+          ui:widget: radio
+
 
   steps:
     # Create controlplane repository
