@@ -2,6 +2,8 @@ name: Update controlplane of ${{values.clusterName}} cluster
 
 on:
   push:
+    paths-ignore:
+      - '.github/workflows/onPushWorkflow.yaml'
     branches:
       - main
 
