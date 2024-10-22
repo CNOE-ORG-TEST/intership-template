@@ -385,6 +385,7 @@ spec:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Controlplane&organization=CNOE-ORG-TEST
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/controlplane
+        gitCommitMessage: initial commit [skip ci]
 
     # Push files to dataplane repository
     - id: init-dataplane-repo
@@ -394,6 +395,7 @@ spec:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Dataplane&organization=CNOE-ORG-TEST
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/dataplane
+        gitCommitMessage: initial commit [skip ci]
 
     # Push files to infrplane repository
     - id: init-infrplane-repo
@@ -403,6 +405,7 @@ spec:
         repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Infrplane&organization=CNOE-ORG-TEST
         defaultBranch: main
         sourcePath: ./applicative-template-compiled/infrplane
+        gitCommitMessage: initial commit [skip ci]
 
     # Apply variables-cm
     - id: apply-variables-cm
