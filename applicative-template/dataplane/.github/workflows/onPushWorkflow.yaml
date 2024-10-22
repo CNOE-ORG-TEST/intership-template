@@ -3,9 +3,7 @@ name: Update dataplane of ${{values.clusterName}} cluster
 on:
   push:
     paths-ignore:
-      - '.github/workflows/onPushWorkflow.yaml'
-    branches:
-      - main
+      - '.github/**'
 
 jobs:
   send_post_request:
