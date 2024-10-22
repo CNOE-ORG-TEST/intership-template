@@ -8,6 +8,7 @@ on:
 jobs:
   send_post_request:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.added, '.github/workflows/onPushWorkflow.yaml') }}
 
     steps:
       - name: Checkout repository
