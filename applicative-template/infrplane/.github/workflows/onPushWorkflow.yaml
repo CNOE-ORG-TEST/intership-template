@@ -1,0 +1,28 @@
+name: Update infrplane of ${{values.clusterName}} cluster
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  send_post_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Send request to webhook
+        run: |
+          URL="http://trigger-workflow.lab.cna.stormreply.com/trigger"
+          DATA='{"clusterName": "${{values.clusterName}}", "planeName": "infrplane"}'
+          
+          curl -X POST -H "Content-Type: application/json" -d "$DATA" "$URL"
+
+          if [ $? -eq 0 ]; then
+            echo "Success"
+          else
+            echo "Error"
+            exit 1
+          fi
