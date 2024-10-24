@@ -459,6 +459,30 @@ spec:
         namespaced: true
         clusterName: local
 
+    # Create backstage component repository
+    - id: create-repo-backstage-component
+      name: Create Backstage component repository
+      action: github:repo:create
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Component&organization=CNOE-ORG-TEST
+
+    # Push files to backstage component repository
+    - id: init-backstage-component-repo
+      name: Initialize Backstage component repository
+      action: github:repo:push
+      input:
+        repoUrl: github.com?owner=CNOE-ORG-TEST&repo=${{ parameters.clusterName }}-${{ parameters.environmentTag }}Component&organization=CNOE-ORG-TEST
+        defaultBranch: main
+        sourcePath: ./applicative-template-compiled/component
+
+    # Register backstage component
+    - id: register-backstage-component
+      name: Register Backstage component
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['init-backstage-component-repo'].output.repoContentsUrl }}
+        catalogInfoPath: "/cataolog-info-cluster.yaml"
+
     # Apply infrplane workflow
     #- id: apply-infrplane-workflow
     #  name: Apply infrplane workflow
