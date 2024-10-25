@@ -4,8 +4,8 @@ metadata:
   generateName: loki-build-cluster-
   namespace: argo
   labels:
-    project-id: "loki"
-    cluster-name: "${{values.clusterName}}"
+    project-id: loki
+    cluster-name: ${{values.clusterName}}
 spec:
   entrypoint: main
   serviceAccountName: argo-workflows-loki-sa
