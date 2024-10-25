@@ -1,3 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: infrplane-${{values.clusterName}}-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /mnt/shared-controlplane
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: infplane-${{values.clusterName}}-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
@@ -11,9 +35,8 @@ spec:
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: shared-volume-infrplane
-      hostPath:
-        path: /mnt/shared-infrplane
-        type: DirectoryOrCreate
+      persistentVolumeClaim:
+        claimName: infrplane-${{values.clusterName}}-pvc
     - name: variables-volume
       configMap:
         name: variables-cm-${{values.clusterName}}

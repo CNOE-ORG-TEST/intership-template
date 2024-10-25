@@ -11,17 +11,14 @@ spec:
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: shared-volume-controlplane
-      hostPath:
-        path: /mnt/shared-controlplane
-        type: DirectoryOrCreate
+      persistentVolumeClaim:
+        claimName: controlplane-${{values.clusterName}}-pvc
     - name: shared-volume-dataplane
-      hostPath:
-        path: /mnt/shared-dataplane
-        type: DirectoryOrCreate
+      persistentVolumeClaim:
+        claimName: dataplane-${{values.clusterName}}-pvc
     - name: shared-volume-infrplane
-      hostPath:
-        path: /mnt/shared-infrplane
-        type: DirectoryOrCreate
+      persistentVolumeClaim:
+        claimName: infrplane-${{values.clusterName}}-pvc
     - name: variables-volume
       configMap:
         name: variables-cm-${{values.clusterName}}
