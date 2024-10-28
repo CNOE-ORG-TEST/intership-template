@@ -10,7 +10,9 @@ spec:
   hostPath:
     path: /mnt/shared-controlplane
   persistentVolumeReclaimPolicy: Retain
+
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -21,7 +23,9 @@ spec:
   resources:
     requests:
       storage: 1Gi
+
 ---
+
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
@@ -32,6 +36,14 @@ metadata:
     cluster-name: ${{values.clusterName}}
 spec:
   entrypoint: main
+  volumeClaimTemplates:
+    - metadata:
+        name: shared-volume-infrplane
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: shared-volume-infrplane
