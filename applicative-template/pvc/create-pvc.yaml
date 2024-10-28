@@ -12,41 +12,47 @@ spec:
     - name: main
       steps:
         - - name: controlplane
-            resource:
-              action: create
-              manifest: |
-                apiVersion: v1
-                kind: PersistentVolumeClaim
-                metadata:
-                  name: loki-cnoe-controlplane-${{values.clusterName}}
-                spec:
-                  accessModes: ['ReadWriteOnce']
-                  resources:
-                    requests:
-                      storage: 10Gi
+            template: controlplane
         - - name: dataplane
-            resource:
-              action: create
-              manifest: |
-                apiVersion: v1
-                kind: PersistentVolumeClaim
-                metadata:
-                  name: loki-cnoe-dataplane-${{values.clusterName}}
-                spec:
-                  accessModes: ['ReadWriteOnce']
-                  resources:
-                    requests:
-                      storage: 10Gi
+            template: dataplane
         - - name: infrplane
-            resource:
-              action: create
-              manifest: |
-                apiVersion: v1
-                kind: PersistentVolumeClaim
-                metadata:
-                  name: loki-cnoe-infrplane-${{values.clusterName}}
-                spec:
-                  accessModes: ['ReadWriteOnce']
-                  resources:
-                    requests:
-                      storage: 10Gi
+            template: infrplane
+    - name: controlplane
+      resource:
+        action: create
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-controlplane-${{values.clusterName}}
+          spec:
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi
+    - name: dataplane
+      resource:
+        action: create
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-dataplane-${{values.clusterName}}
+          spec:
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi
+    - name: infrplane
+      resource:
+        action: create
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-infrplane-${{values.clusterName}}
+          spec:
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi
