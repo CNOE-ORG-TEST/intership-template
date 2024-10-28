@@ -8,31 +8,6 @@ metadata:
     cluster-name: ${{values.clusterName}}
 spec:
   entrypoint: main
-  volumeClaimTemplates:
-    - metadata:
-        name: shared-volume-controlplane
-      spec:
-        storageClassName: mygp2
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
-    - metadata:
-        name: shared-volume-dataplane
-      spec:
-        storageClassName: mygp2
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
-    - metadata:
-        name: shared-volume-infrplane
-      spec:
-        storageClassName: mygp2
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
   serviceAccountName: argo-workflows-loki-sa
   volumes:
     - name: variables-volume
@@ -41,6 +16,15 @@ spec:
         items:
           - key: variables.json
             path: variables.json
+    - name: shared-volume-controlplane
+      persistentVolumeClaim:
+        claimName: loki-cnoe-controlplane-${{values.clusterName}}
+    - name: shared-volume-dataplane
+      persistentVolumeClaim:
+        claimName: loki-cnoe-dataplane-${{values.clusterName}}
+    - name: shared-volume-infrplane
+      persistentVolumeClaim:
+        claimName: loki-cnoe-infrplane-${{values.clusterName}}
   templates:
     - name: main
       steps:
