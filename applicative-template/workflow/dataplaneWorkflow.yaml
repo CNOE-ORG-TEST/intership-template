@@ -16,12 +16,11 @@ spec:
         items:
           - key: variables.json
             path: variables.json
-    - name: shared-volume-dataplane
-      persistentVolumeClaim:
-        claimName: loki-cnoe-dataplane-${{values.clusterName}}
   templates:
     - name: main
       steps:
+        - - name: create-pvc
+            template: dataplane-create-pvc
         - - name: pull
             template: dataplane-pull-step
         - - name: check
@@ -30,9 +29,31 @@ spec:
             template: dataplane-deploy-step
         - - name: test
             template: dataplane-test-step
+        - - name: delete-pvc
+            template: dataplane-delete-pvc
 
+    # definition of the create-vpc step
+    - name: dataplane-create-vpc
+      resource:
+        action: apply
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-dataplane-${{values.clusterName}}
+            namespace: argo
+          spec:
+            storageClassName: mygp2-delete
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi
     # definition of the pull step
     - name: dataplane-pull-step
+      volumes:
+        - name: shared-volume-dataplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-dataplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-pull
         volumeMounts:
@@ -51,6 +72,10 @@ spec:
 
     # definition of the check step
     - name: dataplane-check-step
+      volumes:
+        - name: shared-volume-dataplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-dataplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-check
         volumeMounts:
@@ -67,6 +92,10 @@ spec:
 
     # definition of the deploy step
     - name: dataplane-deploy-step
+      volumes:
+        - name: shared-volume-dataplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-dataplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-deploy
         volumeMounts:
@@ -75,8 +104,29 @@ spec:
 
     # definition of the test step
     - name: dataplane-test-step
+      volumes:
+        - name: shared-volume-dataplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-dataplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/dataplane-test
         volumeMounts:
           - name: shared-volume-dataplane
             mountPath: /shared
+
+    # definition of the delete-vpc step
+    - name: dataplane-delete-vpc
+      resource:
+        action: delete
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-dataplane-${{values.clusterName}}
+            namespace: argo
+          spec:
+            storageClassName: mygp2-delete
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi

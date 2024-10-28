@@ -16,15 +16,6 @@ spec:
         items:
           - key: variables.json
             path: variables.json
-    - name: shared-volume-controlplane
-      persistentVolumeClaim:
-        claimName: loki-cnoe-controlplane-${{values.clusterName}}
-    - name: shared-volume-dataplane
-      persistentVolumeClaim:
-        claimName: loki-cnoe-dataplane-${{values.clusterName}}
-    - name: shared-volume-infrplane
-      persistentVolumeClaim:
-        claimName: loki-cnoe-infrplane-${{values.clusterName}}
   templates:
     - name: main
       steps:

@@ -22,6 +22,8 @@ spec:
   templates:
     - name: main
       steps:
+        - - name: create-pvc
+            template: controlplane-create-pvc
         - - name: pull
             template: controlplane-pull-step
         - - name: check
@@ -32,9 +34,31 @@ spec:
             template: controlplane-post-deploy-step
         - - name: test
             template: controlplane-test-step
+        - - name: delete-pvc
+            template: controlplane-delete-pvc
 
+    # definition of the create-vpc step
+    - name: controlplane-create-vpc
+      resource:
+        action: apply
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-controlplane-${{values.clusterName}}
+            namespace: argo
+          spec:
+            storageClassName: mygp2-delete
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi
     # definition of the pull step
     - name: controlplane-pull-step
+      volumes:
+        - name: shared-volume-controlplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-controlplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/controlplane-pull
         volumeMounts:
@@ -53,6 +77,10 @@ spec:
 
     # definition of the check step
     - name: controlplane-check-step
+      volumes:
+        - name: shared-volume-controlplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-controlplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/controlplane-check
         volumeMounts:
@@ -70,6 +98,10 @@ spec:
 
     # definition of the deploy step
     - name: controlplane-deploy-step
+      volumes:
+        - name: shared-volume-controlplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-controlplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/controlplane-deploy
         volumeMounts:
@@ -78,6 +110,10 @@ spec:
 
     # definition of the post deploy step
     - name: controlplane-post-deploy-step
+      volumes:
+        - name: shared-volume-controlplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-controlplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/controlplane-post-deploy
         volumeMounts:
@@ -86,8 +122,29 @@ spec:
 
     # definition of the test step
     - name: controlplane-test-step
+      volumes:
+        - name: shared-volume-controlplane
+          persistentVolumeClaim:
+            claimName: loki-cnoe-controlplane-${{values.clusterName}}
       container:
         image: 523753954008.dkr.ecr.eu-west-1.amazonaws.com/intership-cnoe-loki/controlplane-test
         volumeMounts:
           - name: shared-volume-controlplane
             mountPath: /shared
+
+    # definition of the delete-vpc step
+    - name: controlplane-delete-vpc
+      resource:
+        action: delete
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: loki-cnoe-controlplane-${{values.clusterName}}
+            namespace: argo
+          spec:
+            storageClassName: mygp2-delete
+            accessModes: ['ReadWriteOnce']
+            resources:
+              requests:
+                storage: 10Gi
