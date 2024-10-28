@@ -10,7 +10,7 @@ spec:
   entrypoint: main
   volumeClaimTemplates:
     - metadata:
-        name: shared-volume-dataplane
+        name: shared-pvc-dataplane
       spec:
         storageClassName: local-storage
         local:
@@ -21,9 +21,9 @@ spec:
             storage: 1Gi
   serviceAccountName: argo-workflows-loki-sa
   volumes:
-    #- name: shared-volume-dataplane
-    #  persistentVolumeClaim:
-    #    claimName: shared-pvc-dataplane
+    - name: shared-volume-dataplane
+      persistentVolumeClaim:
+        claimName: shared-pvc-dataplane
     - name: variables-volume
       configMap:
         name: variables-cm-${{values.clusterName}}
