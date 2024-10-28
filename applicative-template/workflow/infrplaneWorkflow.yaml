@@ -8,22 +8,8 @@ metadata:
     cluster-name: ${{values.clusterName}}
 spec:
   entrypoint: main
-  volumeClaimTemplates:
-    - metadata:
-        name: shared-pvc-infrplane
-      spec:
-        storageClassName: local-storage
-        local:
-            path: /mnt/loki/infrplane
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
   serviceAccountName: argo-workflows-loki-sa
   volumes:
-    - name: shared-volume-infrplane
-      persistentVolumeClaim:
-        claimName: shared-pvc-infrplane
     - name: variables-volume
       configMap:
         name: variables-cm-${{values.clusterName}}

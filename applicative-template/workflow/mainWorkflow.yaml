@@ -10,7 +10,7 @@ spec:
   entrypoint: main
   volumeClaimTemplates:
     - metadata:
-        name: shared-pvc-controlplane
+        name: shared-volume-controlplane
       spec:
         storageClassName: local-storage
         local:
@@ -20,7 +20,7 @@ spec:
           requests:
             storage: 1Gi
     - metadata:
-        name: shared-pvc-dataplane
+        name: shared-volume-dataplane
       spec:
         storageClassName: local-storage
         local:
@@ -30,7 +30,7 @@ spec:
           requests:
             storage: 1Gi
     - metadata:
-        name: shared-pvc-infrplane
+        name: shared-volume-infrplane
       spec:
         storageClassName: local-storage
         local:
@@ -47,15 +47,6 @@ spec:
         items:
           - key: variables.json
             path: variables.json
-    - name: shared-volume-controlplane
-      persistentVolumeClaim:
-        claimName: shared-pvc-controlplane
-    - name: shared-volume-dataplane
-      persistentVolumeClaim:
-        claimName: shared-pvc-dataplane
-    - name: shared-volume-infrplane
-      persistentVolumeClaim:
-        claimName: shared-pvc-infrplane
   templates:
     - name: main
       steps:
