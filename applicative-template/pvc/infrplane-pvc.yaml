@@ -4,6 +4,7 @@ metadata:
   name: loki-cnoe-infrplane-${{values.clusterName}}
 spec:
   accessModes: ['ReadWriteOnce']
+  storageClassName: mygp2-delete
   resources:
     requests:
       storage: 10Gi
