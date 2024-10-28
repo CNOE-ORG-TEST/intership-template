@@ -8,6 +8,7 @@ metadata:
     cluster-name: ${{values.clusterName}}
 spec:
   entrypoint: main
+  serviceAccountName: operate-workflow-sa
   templates:
     - name: main
       steps:
