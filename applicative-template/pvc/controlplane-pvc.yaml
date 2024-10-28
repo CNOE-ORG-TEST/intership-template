@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: loki-cnoe-controlplane-${{values.clusterName}}
+  namespace: argo
 spec:
   accessModes: ['ReadWriteOnce']
   storageClassName: mygp2-delete
