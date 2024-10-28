@@ -450,6 +450,15 @@ spec:
         namespaced: true
         clusterName: local
 
+    # create pvc
+    - id: create-pvc
+      name: Create pvc for pipelines
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: ./applicative-template-compiled/pvc/create-pvc.yaml
+        namespaced: true
+        clusterName: local
+
     # Apply main workflow (create cluster)
     - id: apply-main-workflow
       name: Apply main workflow (create cluster)

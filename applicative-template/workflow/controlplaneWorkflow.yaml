@@ -1,15 +1,3 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: loki-cnoe-controlplane-${{values.clusterName}}
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: mygp2-delete
----
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:

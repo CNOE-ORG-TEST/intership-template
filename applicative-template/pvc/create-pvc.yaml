@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: create-pvc-${{values.clusterName}}-
+  namespace: argo
+  labels:
+    project-id: loki
+    cluster-name: ${{values.clusterName}}
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      steps:
+        - - name: controlplane
+            resource:
+              action: create
+              manifest: |
+                apiVersion: v1
+                kind: PersistentVolumeClaim
+                metadata:
+                  name: loki-cnoe-controlplane-${{values.clusterName}}
+                spec:
+                  accessModes: ['ReadWriteOnce']
+                  resources:
+                    requests:
+                      storage: 10Gi
+        - - name: dataplane
+            resource:
+              action: create
+              manifest: |
+                apiVersion: v1
+                kind: PersistentVolumeClaim
+                metadata:
+                  name: loki-cnoe-dataplane-${{values.clusterName}}
+                spec:
+                  accessModes: ['ReadWriteOnce']
+                  resources:
+                    requests:
+                      storage: 10Gi
+        - - name: infrplane
+            resource:
+              action: create
+              manifest: |
+                apiVersion: v1
+                kind: PersistentVolumeClaim
+                metadata:
+                  name: loki-cnoe-infrplane-${{values.clusterName}}
+                spec:
+                  accessModes: ['ReadWriteOnce']
+                  resources:
+                    requests:
+                      storage: 10Gi
