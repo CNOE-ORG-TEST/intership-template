@@ -12,15 +12,18 @@ spec:
     - metadata:
         name: shared-volume-dataplane
       spec:
+        storageClassName: local-storage
+        local:
+          path: /mnt/loki/dataplane
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 1Gi
   serviceAccountName: argo-workflows-loki-sa
   volumes:
-    - name: shared-volume-dataplane
-      persistentVolumeClaim:
-        claimName: dataplane-${{values.clusterName}}-pvc
+    #- name: shared-volume-dataplane
+    #  persistentVolumeClaim:
+    #    claimName: shared-pvc-dataplane
     - name: variables-volume
       configMap:
         name: variables-cm-${{values.clusterName}}

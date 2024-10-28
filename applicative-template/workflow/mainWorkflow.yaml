@@ -12,6 +12,9 @@ spec:
     - metadata:
         name: shared-volume-controlplane
       spec:
+        storageClassName: local-storage
+        local:
+          path: /mnt/loki/controlplane
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
@@ -19,6 +22,9 @@ spec:
     - metadata:
         name: shared-volume-dataplane
       spec:
+        storageClassName: local-storage
+        local:
+          path: /mnt/loki/dataplane
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
@@ -26,6 +32,9 @@ spec:
     - metadata:
         name: shared-volume-infrplane
       spec:
+        storageClassName: local-storage
+        local:
+          path: /mnt/loki/infrplane
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
@@ -38,6 +47,15 @@ spec:
         items:
           - key: variables.json
             path: variables.json
+    #- name: shared-volume-controlplane
+    #  persistentVolumeClaim:
+    #    claimName: shared-pvc-controlplane
+    #- name: shared-volume-dataplane
+    #  persistentVolumeClaim:
+    #    claimName: shared-pvc-dataplane
+    #- name: shared-volume-infrplane
+    #  persistentVolumeClaim:
+    #    claimName: shared-pvc-infrplane
   templates:
     - name: main
       steps:
