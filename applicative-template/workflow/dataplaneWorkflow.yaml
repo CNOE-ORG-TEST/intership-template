@@ -33,7 +33,7 @@ spec:
             template: dataplane-delete-pvc
 
     # definition of the create-vpc step
-    - name: dataplane-create-vpc
+    - name: dataplane-create-pvc
       resource:
         action: apply
         manifest: |
@@ -115,7 +115,7 @@ spec:
             mountPath: /shared
 
     # definition of the delete-vpc step
-    - name: dataplane-delete-vpc
+    - name: dataplane-delete-pvc
       resource:
         action: delete
         manifest: |

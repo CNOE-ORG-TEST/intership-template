@@ -36,7 +36,7 @@ spec:
             template: infrplane-delete-pvc
 
     # definition of the create-vpc step
-    - name: infrplane-create-vpc
+    - name: infrplane-create-pvc
       resource:
         action: apply
         manifest: |
@@ -126,7 +126,7 @@ spec:
             mountPath: /shared
 
     # definition of the delete-vpc step
-    - name: infrplane-delete-vpc
+    - name: infrplane-delete-pvc
       resource:
         action: delete
         manifest: |

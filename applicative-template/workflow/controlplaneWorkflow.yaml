@@ -35,7 +35,7 @@ spec:
             template: controlplane-delete-pvc
 
     # definition of the create-vpc step
-    - name: controlplane-create-vpc
+    - name: controlplane-create-pvc
       resource:
         action: apply
         manifest: |
@@ -131,7 +131,7 @@ spec:
             mountPath: /shared
 
     # definition of the delete-vpc step
-    - name: controlplane-delete-vpc
+    - name: controlplane-delete-pvc
       resource:
         action: delete
         manifest: |
