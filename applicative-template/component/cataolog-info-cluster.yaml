@@ -5,6 +5,7 @@ metadata:
   description: Monitor ${{values.clusterName}} cluster created with LOKI
   annotations:
     argo-workflows.cnoe.io/label-selector: "cluster-name=${{values.clusterName}}"
+    argo-workflows.cnoe.io/namespace: "argo"
     argo-workflows.cnoe.io/cluster-name: local
 spec:
   type: service

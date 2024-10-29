@@ -451,13 +451,13 @@ spec:
         clusterName: local
 
     # create pvc for controlplane
-    - id: create-pvc
-      name: Create pvc for pipelines
-      action: cnoe:kubernetes:apply
-      input:
-        manifestPath: ./applicative-template-compiled/pvc/create-pvc.yaml
-        namespaced: true
-        clusterName: local
+#    - id: create-pvc
+#      name: Create pvc for pipelines
+#      action: cnoe:kubernetes:apply
+#      input:
+#        manifestPath: ./applicative-template-compiled/pvc/create-pvc.yaml
+#        namespaced: true
+#        clusterName: local
 
     # Apply main workflow (create cluster)
     - id: apply-main-workflow

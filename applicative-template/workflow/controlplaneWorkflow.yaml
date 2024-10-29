@@ -16,9 +16,6 @@ spec:
         items:
           - key: variables.json
             path: variables.json
-    - name: shared-volume-controlplane
-      persistentVolumeClaim:
-        claimName: loki-cnoe-controlplane-${{values.clusterName}}
   templates:
     - name: main
       steps:
@@ -53,6 +50,7 @@ spec:
             resources:
               requests:
                 storage: 10Gi
+
     # definition of the pull step
     - name: controlplane-pull-step
       volumes:
