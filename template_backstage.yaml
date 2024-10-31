@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: reply-platform-intership
   title: Create Cluster (Reply)
-  description: Create the security perimeter for the platform microservice
+  description: Create EKS cluster with LOKI
 spec:
   owner: ro.distefano
   type: job
