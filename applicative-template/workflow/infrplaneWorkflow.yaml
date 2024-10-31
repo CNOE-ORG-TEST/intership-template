@@ -126,6 +126,8 @@ spec:
             mountPath: /shared
 
     # definition of the delete-vpc step
+    - name: infrplane-delete-pvc
+      resource:
         action: delete
         manifest: |
           apiVersion: v1
