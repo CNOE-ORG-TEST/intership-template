@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: reply-platform-intership
-  title: Create Cluster (Reply)
-  description: Create EKS cluster with LOKI
+  title: LOKI
+  description: Create EKS cluster
 spec:
   owner: ro.distefano
   type: job
