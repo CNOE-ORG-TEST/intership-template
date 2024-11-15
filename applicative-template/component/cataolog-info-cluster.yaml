@@ -4,6 +4,7 @@ metadata:
   name: "${{values.clusterName}}-monitor-cluster-loki"
   description: Monitor ${{values.clusterName}} cluster created with LOKI
   annotations:
+    backstage.io/techdocs-ref: dir:.
     argo-workflows.cnoe.io/label-selector: "cluster-name=${{values.clusterName}}"
     backstage.io/kubernetes-namespace: "argo"
     argo-workflows.cnoe.io/cluster-name: local
