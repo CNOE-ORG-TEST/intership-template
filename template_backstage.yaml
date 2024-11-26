@@ -442,8 +442,8 @@ spec:
         clusterName: local
 
     # Apply infrplane workflow
-    - id: apply-infrplane-workflow
-      name: Apply infrplane workflow
+    - id: apply-infrplane-workflow-template
+      name: Apply infrplane workflow template
       action: cnoe:kubernetes:apply
       input:
         manifestPath: ./applicative-template-compiled/workflow/infrplaneWorkflow.yaml
